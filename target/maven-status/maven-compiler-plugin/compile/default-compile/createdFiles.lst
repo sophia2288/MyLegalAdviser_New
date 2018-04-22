@@ -1,0 +1,9 @@
+com\whx\serviceImpl\UserServiceImpl.class
+com\whx\entities\Law.class
+com\whx\controller\UserControllerA.class
+com\whx\controller\UserController.class
+com\whx\entities\User.class
+com\whx\entities\Article.class
+com\whx\service\UserService.class
+com\whx\dao\UserDao.class
+com\whx\daoImpl\UserDaoImpl.class
