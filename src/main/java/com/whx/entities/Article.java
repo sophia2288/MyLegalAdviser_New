@@ -29,6 +29,12 @@ public class Article implements java.io.Serializable {
 	@JoinColumn(name="lawId")
 	private Law law;
 	
+	@Column(name="chapter",nullable=true,unique=false)
+	private String chapter;
+	
+	@Column(name="section",nullable=true,unique=false)
+	private String section;
+	
 	@Column(name="articleNo",nullable=false,unique=false)
 	private String articleNo;
 	
@@ -38,7 +44,7 @@ public class Article implements java.io.Serializable {
 	@Column(name="content",nullable=false,unique=true)
 	private String content;
 	
-	@Column(name="gist",nullable=true,unique=true)
+	@Column(name="gist",nullable=true)
 	private String gist;
 
 	public Article() {
@@ -76,6 +82,22 @@ public class Article implements java.io.Serializable {
 
 	public void setLaw(Law law) {
 		this.law = law;
+	}
+	
+	public String getChapter() {
+		return chapter;
+	}
+
+	public void setChapter(String chapter) {
+		this.chapter = chapter;
+	}
+
+	public String getSection() {
+		return section;
+	}
+
+	public void setSection(String section) {
+		this.section = section;
 	}
 
 	public String getArticleNo() {
