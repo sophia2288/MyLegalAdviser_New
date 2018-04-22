@@ -48,6 +48,7 @@ public class UserDaoImpl implements UserDao {
 		query.setString(3, user.getEmail());
 		query.setString(4, user.getConcerns());
 		query.setShort(5, user.getContributions());
+		query.setString(6, user.getAccount());
 
 		return (query.executeUpdate() > 0);
 	}
