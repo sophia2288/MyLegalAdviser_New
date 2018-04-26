@@ -1,9 +1,13 @@
 com\whx\serviceImpl\UserServiceImpl.class
 com\whx\entities\Law.class
-com\whx\controller\UserControllerA.class
-com\whx\controller\UserController.class
-com\whx\entities\User.class
 com\whx\entities\Article.class
 com\whx\service\UserService.class
 com\whx\dao\UserDao.class
+com\whx\controller\UserControllerA.class
+com\whx\daoImpl\LawDaoImpl.class
+com\whx\dao\ArticleDao.class
+com\whx\dao\LawDao.class
+com\whx\controller\UserController.class
+com\whx\daoImpl\ArticleDaoImpl.class
+com\whx\entities\User.class
 com\whx\daoImpl\UserDaoImpl.class

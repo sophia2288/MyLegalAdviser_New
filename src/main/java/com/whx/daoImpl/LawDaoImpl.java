@@ -77,9 +77,11 @@ public class LawDaoImpl implements LawDao{
 		return null;
 	}
 
+	/*
 	public Set<Article> getArticles(Law law) {
 		return law.getArticles();
 	}
+	*/
 
 	@SuppressWarnings("unchecked")
 	public boolean exists(int lawId) {
@@ -100,5 +102,4 @@ public class LawDaoImpl implements LawDao{
 		
 		return lawList.size() > 0 ? true : false;
 	}
-
 }

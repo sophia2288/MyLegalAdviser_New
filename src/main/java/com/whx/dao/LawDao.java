@@ -20,7 +20,7 @@ public interface LawDao {
 
 	public Law findByFullName(String fullName);
 
-	public Set<Article> getArticles(Law law);
+	//public Set<Article> getArticles(Law law);
 
 	public boolean exists(int lawId);// 检测指定编号的法律文件是否存在
 

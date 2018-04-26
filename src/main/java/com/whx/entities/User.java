@@ -71,6 +71,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public void setPassword(String password) {
+		//String passwordMD5=common.Encrypter.md5Encrypt(password);
 		this.password = password;
 	}
 	
