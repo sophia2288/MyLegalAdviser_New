@@ -2,10 +2,8 @@ package com.whx.daoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.SessionFactory;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import com.whx.dao.UserDao;
 import com.whx.entities.User;
@@ -13,33 +11,45 @@ import com.whx.entities.User;
 @Repository("userDao")
 public class UserDaoImpl implements UserDao {
 	/***** 注入 *****/
+	/*
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
+	*/
+	@Autowired
+	private HibernateTemplate hibernateTemplate;
 
 	public UserDaoImpl() {
 		System.out.println("UserDaoImpl");
 	}
 
 	public void save(User user) {
-		sessionFactory.getCurrentSession().saveOrUpdate(user);
+		//sessionFactory.getCurrentSession().saveOrUpdate(user);
+		hibernateTemplate.save(user);
 	}
 
-	public boolean delete(User user) {
-		String hql = "delete User u where u.account=?";
+	public void delete(User user) {
+		/*
+		String hql = "delete User u where u.account = ?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, user.getAccount());
 		return (query.executeUpdate() > 0);
+		*/
+		hibernateTemplate.delete(user);
 	}
 
-	public boolean delete(String account) {
+	public void delete(String account) {
+		/*
 		String hql = "delete User u where u.account=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, account);
 		return (query.executeUpdate() > 0);
+		*/
+		hibernateTemplate.bulkUpdate("delete User u where u.account = ?", new Object[]{account});
 	}
 
-	public boolean update(User user) {
+	public void update(User user) {
+		/*
 		String hql = "update User u set u.password=?,u.category=?,u.phone=?,u.email=?,u.concerns=?,u.contributions=? where u.account=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, user.getPassword());
@@ -51,16 +61,20 @@ public class UserDaoImpl implements UserDao {
 		query.setString(6, user.getAccount());
 
 		return (query.executeUpdate() > 0);
+		*/
+		hibernateTemplate.update(user);
 	}
 
 	public User findById(String account) {
-		return (User) sessionFactory.getCurrentSession().get(User.class, account);
+		//return (User) sessionFactory.getCurrentSession().get(User.class, account);
+		return (User) hibernateTemplate.get(User.class, account);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<User> findAll() {
-		Query query = sessionFactory.getCurrentSession().createQuery("from User");
-		return query.list();
+		//Query query = sessionFactory.getCurrentSession().createQuery("from User");
+		//return query.list();
+		return (List<User>)hibernateTemplate.find("from User");
 	}
 	
 	//用户类别是依据数据库law表t_user定义的
@@ -78,8 +92,11 @@ public class UserDaoImpl implements UserDao {
 	public boolean exists(String account) {
 		List<User> userList = new ArrayList<User>();
 		String hql = "from User u where u.account = :account";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("account", account);
-		userList = query.list();
+		// Query query =
+		// sessionFactory.getCurrentSession().createQuery(hql).setParameter("account",
+		// account);
+		userList = (List<User>) hibernateTemplate.findByNamedParam(hql, "account", account);
+		// userList = query.list();
 
 		return userList.size() > 0 ? true : false;
 	}

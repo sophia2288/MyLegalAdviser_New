@@ -6,11 +6,11 @@ import com.whx.entities.User;
 public interface UserDao {
 	public void save(User user);
 
-	public boolean delete(User user);
+	public void delete(User user);
 
-	public boolean delete(String account);
+	public void delete(String account);
 
-	public boolean update(User user);
+	public void update(User user);
 
 	public User findById(String account);
 

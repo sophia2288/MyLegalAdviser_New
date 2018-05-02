@@ -25,16 +25,16 @@ public class UserServiceImpl implements UserService {
 			userDao.save(user);
 	}
 
-	public boolean deleteUser(User user) {
-		return userDao.delete(user);
+	public void deleteUser(User user) {
+		userDao.delete(user);
 	}
 	
-	public boolean deleteUser(String account) {
-		return userDao.delete(account);
+	public void deleteUser(String account) {
+		userDao.delete(account);
 	}
 
-	public boolean updateUser(User user) {
-		return userDao.update(user);
+	public void updateUser(User user) {
+		userDao.update(user);
 	}
 	
 	public User getUser(String account) {

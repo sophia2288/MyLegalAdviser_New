@@ -8,11 +8,11 @@ public interface UserService {
 
 	public void addUser(User user);
 
-	public boolean deleteUser(User user);
+	public void deleteUser(User user);
 
-	public boolean deleteUser(String account);
+	public void deleteUser(String account);
 
-	public boolean updateUser(User user);
+	public void updateUser(User user);
 	
 	public User getUser(String account);
 
