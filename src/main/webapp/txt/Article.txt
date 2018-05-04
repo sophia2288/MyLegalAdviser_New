@@ -1,17 +1,12 @@
 package com.whx.entities;
-// Generated 2018-5-3 16:19:17 by Hibernate Tools 5.1.6.Final
+// Generated 2018-4-17 18:45:44 by Hibernate Tools 5.1.6.Final
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -26,78 +21,58 @@ public class Article implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int articleId;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "lawId")
 	private Law law;
-	
+
 	@Column(name = "piece", nullable = true, unique = false)
 	private String piece;
-	
+
 	@Column(name = "chapter", nullable = true, unique = false)
 	private String chapter;
-	
+
 	@Column(name = "section", nullable = true, unique = false)
 	private String section;
-	
+
 	@Column(name = "articleNo", nullable = false, unique = false)
 	private String articleNo;
-	
+
 	@Column(name = "branchNo", nullable = false, unique = false)
 	private String branchNo;
-	
+
 	@Column(name = "content", nullable = false, unique = true)
 	private String content;
-	
-	@Column(name = "gist", nullable = true, unique = false)
+
+	@Column(name = "gist", nullable = true)
 	private String gist;
-	
-	@ManyToMany(targetEntity=Caseclass.class,mappedBy="articles",cascade=CascadeType.ALL)
-	private Set<Caseclass> caseclasses = new HashSet<Caseclass>(0);
-	
-	@ManyToMany(targetEntity=Guidecase.class,mappedBy="articles",cascade=CascadeType.ALL)
-	private Set<Guidecase> guidecases = new HashSet<Guidecase>(0);
-	
-	@ManyToMany(targetEntity=Judgepoint.class,mappedBy="articles",cascade=CascadeType.ALL)
-	private Set<Judgepoint> judgepoints = new HashSet<Judgepoint>(0);
-	
-	@ManyToMany(targetEntity=Doc.class,mappedBy="articles",cascade=CascadeType.ALL)
-	private Set<Doc> docs = new HashSet<Doc>(0);
 
 	public Article() {
 	}
 
-	public Article(int articleId, Law law, String articleNo, String branchNo, String content) {
+	public Article(int articleId, Law Law, String articleNo, String branchNo, String content) {
 		this.articleId = articleId;
-		this.law = law;
+		this.law = Law;
 		this.articleNo = articleNo;
 		this.branchNo = branchNo;
 		this.content = content;
 	}
 
-	public Article(int articleId, Law law, String piece, String chapter, String section, String articleNo,
-			String branchNo, String content, String gist, Set<Caseclass> caseclasses, Set<Guidecase> guidecases, Set<Judgepoint> judgepoints, Set<Doc> docs) {
+	public Article(int articleId, Law law, String articleNo, String branchNo, String content, String gist) {
 		this.articleId = articleId;
 		this.law = law;
-		this.piece = piece;
-		this.chapter = chapter;
-		this.section = section;
 		this.articleNo = articleNo;
 		this.branchNo = branchNo;
 		this.content = content;
 		this.gist = gist;
-		this.caseclasses = caseclasses;
-		this.guidecases = guidecases;
-		this.judgepoints = judgepoints;
-		this.docs = docs;
 	}
 
 	public int getArticleId() {
-		return articleId;
+		return this.articleId;
 	}
 
 	public void setArticleId(int articleId) {
@@ -113,7 +88,7 @@ public class Article implements java.io.Serializable {
 	}
 
 	public String getPiece() {
-		return this.piece;
+		return piece;
 	}
 
 	public void setPiece(String piece) {
@@ -121,7 +96,7 @@ public class Article implements java.io.Serializable {
 	}
 
 	public String getChapter() {
-		return this.chapter;
+		return chapter;
 	}
 
 	public void setChapter(String chapter) {
@@ -129,7 +104,7 @@ public class Article implements java.io.Serializable {
 	}
 
 	public String getSection() {
-		return this.section;
+		return section;
 	}
 
 	public void setSection(String section) {
@@ -166,38 +141,6 @@ public class Article implements java.io.Serializable {
 
 	public void setGist(String gist) {
 		this.gist = gist;
-	}
-
-	public Set<Caseclass> getCaseclasses() {
-		return this.caseclasses;
-	}
-
-	public void setCaseclasses(Set<Caseclass> caseclasses) {
-		this.caseclasses = caseclasses;
-	}
-
-	public Set<Guidecase> getGuidecases() {
-		return this.guidecases;
-	}
-
-	public void setGuidecases(Set<Guidecase> guidecases) {
-		this.guidecases = guidecases;
-	}
-
-	public Set<Judgepoint> getJudgepoints() {
-		return this.judgepoints;
-	}
-
-	public void setJudgepoints(Set<Judgepoint> judgepoints) {
-		this.judgepoints = judgepoints;
-	}
-
-	public Set<Doc> getDocs() {
-		return this.docs;
-	}
-
-	public void setDocs(Set<Doc> docs) {
-		this.docs = docs;
 	}
 
 }

@@ -1,9 +1,5 @@
 package com.whx.dao;
 
-import java.util.List;
-import java.util.Set;
-
-import com.whx.entities.Article;
 import com.whx.entities.Law;
 
 public interface LawDao {

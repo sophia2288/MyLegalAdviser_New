@@ -8,10 +8,6 @@
         <property name="hibernate.connection.password">whx123654</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/nlaw</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.default_catalog">law</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
-        <mapping class="com.whx.entities.Law" />
-        <mapping class="com.whx.entities.Article" />
-        <mapping class="com.whx.entities.User" />
     </session-factory>
 </hibernate-configuration>
