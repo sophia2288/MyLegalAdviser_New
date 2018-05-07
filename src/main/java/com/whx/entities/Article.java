@@ -26,46 +26,46 @@ public class Article implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int articleId;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "lawId")
 	private Law law;
-	
+
 	@Column(name = "piece", nullable = true, unique = false)
 	private String piece;
-	
+
 	@Column(name = "chapter", nullable = true, unique = false)
 	private String chapter;
-	
+
 	@Column(name = "section", nullable = true, unique = false)
 	private String section;
-	
+
 	@Column(name = "articleNo", nullable = false, unique = false)
 	private String articleNo;
-	
+
 	@Column(name = "branchNo", nullable = false, unique = false)
 	private String branchNo;
-	
+
 	@Column(name = "content", nullable = false, unique = true)
 	private String content;
-	
+
 	@Column(name = "gist", nullable = true, unique = false)
 	private String gist;
-	
-	@ManyToMany(targetEntity=Caseclass.class,mappedBy="articles",cascade=CascadeType.ALL)
+
+	@ManyToMany(targetEntity = Caseclass.class, mappedBy = "articles", cascade = { CascadeType.ALL })
 	private Set<Caseclass> caseclasses = new HashSet<Caseclass>(0);
-	
-	@ManyToMany(targetEntity=Guidecase.class,mappedBy="articles",cascade=CascadeType.ALL)
+
+	@ManyToMany(targetEntity = Guidecase.class, mappedBy = "articles", cascade = { CascadeType.ALL })
 	private Set<Guidecase> guidecases = new HashSet<Guidecase>(0);
-	
-	@ManyToMany(targetEntity=Judgepoint.class,mappedBy="articles",cascade=CascadeType.ALL)
+
+	@ManyToMany(targetEntity = Judgepoint.class, mappedBy = "articles", cascade = { CascadeType.ALL })
 	private Set<Judgepoint> judgepoints = new HashSet<Judgepoint>(0);
-	
-	@ManyToMany(targetEntity=Doc.class,mappedBy="articles",cascade=CascadeType.ALL)
+
+	@ManyToMany(targetEntity = Doc.class, mappedBy = "articles", cascade = { CascadeType.ALL })
 	private Set<Doc> docs = new HashSet<Doc>(0);
 
 	public Article() {
@@ -80,7 +80,8 @@ public class Article implements java.io.Serializable {
 	}
 
 	public Article(int articleId, Law law, String piece, String chapter, String section, String articleNo,
-			String branchNo, String content, String gist, Set<Caseclass> caseclasses, Set<Guidecase> guidecases, Set<Judgepoint> judgepoints, Set<Doc> docs) {
+			String branchNo, String content, String gist, Set<Caseclass> caseclasses, Set<Guidecase> guidecases,
+			Set<Judgepoint> judgepoints, Set<Doc> docs) {
 		this.articleId = articleId;
 		this.law = law;
 		this.piece = piece;

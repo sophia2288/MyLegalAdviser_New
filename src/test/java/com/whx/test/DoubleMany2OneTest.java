@@ -39,7 +39,7 @@ public class DoubleMany2OneTest {
 	@Test
 	public void testSave() {
 		Law law= new Law();
-        law.setFullName("中华人民共和国合同法");
+        law.setFullName("中华人民共和国民法总则");
         law.setOrgan("全国人民代表大会");
         law.setEffectiveDate(Date.valueOf(LocalDate.now()));
         law.setPrescription("现行有效");
@@ -48,14 +48,14 @@ public class DoubleMany2OneTest {
         law.setClassification1("民商事");
         
         Article article1=new Article();
-        article1.setArticleNo("十八");
+        article1.setArticleNo("十六");
         article1.setBranchNo("一");
-        article1.setContent("成年人为完全民事行为能力人，可以独立实施民事法律行为。");
+        article1.setContent("涉及遗产继承、接受赠与等胎儿利益保护的，胎儿视为具有民事权利能力。但是胎儿娩出时为死体的，其民事权利能力自始不存在。");
         
         Article article2=new Article();
-        article2.setArticleNo("十八");
-        article2.setBranchNo("二");
-        article2.setContent("十六周岁以上的未成年人，以自己的劳动收入为主要生活来源的，视为完全民事行为能力人。");
+        article2.setArticleNo("十五");
+        article2.setBranchNo("一");
+        article2.setContent("自然人的出生时间和死亡时间，以出生证明、死亡证明记载的时间为准;没有出生证明、死亡证明的，以户籍登记或者其他有效身份登记记载的时间为准。有其他证据足以推翻以上记载时间的，以该证据证明的时间为准。");
         
         law.getArticles().add(article1);
         law.getArticles().add(article2);

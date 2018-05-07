@@ -14,7 +14,7 @@
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		scope="singleton" destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/law?characterEncoding=utf-8" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/nlaw?characterEncoding=utf-8" />
 		<property name="user" value="root" />
 		<property name="password" value="whx123654" />
 	</bean>
@@ -29,6 +29,7 @@
 		</property>
 		<property name="hibernateProperties">
 			<props>
+				<!-- 数据库方言 -->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
 				<!-- 是否在控制台显示sql -->
 				<prop key="hibernate.show_sql">true</prop>
@@ -36,23 +37,31 @@
 				<prop key="hibernate.format_sql">true</prop>
 				<!-- 设置自动创建|更新|验证数据库表结构 -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				
 				<!-- 指定hibernate在何时释放JDBC连接 -->
                 <prop key="hibernate.connection.release_mode">auto</prop>
-                
                 <!--connection.useUnicode连接数据库时是否使用Unicode编码 -->
 		        <prop key="hibernate.connection.useUnicode">true </prop>
-		        
 		        <!--connection.characterEncoding连接数据库时数据的传输字符集编码方式-->
 		        <prop key="hibernate.connection.characterEncoding">utf-8 </prop>
 			</props>
 		</property>
 	</bean>
-
+	
+	<!--hibernateTemplate的配置-->
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+	
+	<!-- 有关事务的配置 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<!-- tx的Annotation配置 -->
+	<!--  
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	-->
 	
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -69,10 +78,6 @@
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
     </aop:config>
     
-	<!--  
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	-->
-
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor">
 	</bean>
 

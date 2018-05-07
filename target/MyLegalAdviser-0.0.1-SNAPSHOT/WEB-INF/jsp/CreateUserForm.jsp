@@ -23,7 +23,7 @@
         </p>
         <p>
             <label for="category">类&nbsp;&nbsp;&nbsp;&nbsp;别: </label>
-            <form:select id="category" path="category" style="height:28px">
+            <form:select id="category" path="category" style="height:25px">
                 <form:option value="普通用户" selected="selected">普通用户</form:option>
                 <form:option value="律师">律师</form:option>
                 <form:option value="公检法工作人员">公检法工作人员</form:option>
@@ -40,7 +40,7 @@
             <form:input id="email" path="email" style="width:140px;height:25px"/>
         </p>
         <p>
-            <label for="concerns">关注点: </label>
+            <label for="concerns">兴趣点: </label>
             <form:textarea id="concerns" path="concerns" rows="5" style="width:160px"/>
         </p>
         

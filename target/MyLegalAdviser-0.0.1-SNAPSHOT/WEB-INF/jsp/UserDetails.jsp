@@ -13,7 +13,7 @@
 	类&nbsp;&nbsp;&nbsp;&nbsp;别：${userN.category}<br /> 
 	电&nbsp;&nbsp;&nbsp;&nbsp;话：${userN.phone}<br /> 
 	E-&nbsp;mail：${userN.email}<br /> 
-	关注点：${userN.concerns}<br /> 
+	兴趣点：${userN.concerns}<br /> 
 	资料贡献数量：${userN.contributions}<br /> 
 	
 </body>
