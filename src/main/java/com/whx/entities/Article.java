@@ -32,15 +32,19 @@ public class Article implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int articleId;
 
-	//级联刷新  
-    //属性optional表示该对象可有可无，其值为true时表示该外键可以为null，值为false时表示该外键为not null        
-    //@ManyToOne(cascade = CascadeType.REFRESH,optional = false,fetch = FetchType.LAZY)
-    //指定外键列(这也表示为所在对象为“关系被维护端”) 
-    //@JoinColumn(name = "lawId")
-	@ManyToOne(optional = false,fetch = FetchType.LAZY)
-	@JoinColumn(name = "lawId",nullable = false)
-	//@JoinColumn(name = "lawId",foreignKey = @ForeignKey(name = "FK_R_Law_Article",value = ConstraintMode.NO_CONSTRAINT))//注意这里的@ForeignKey是javax.persistence包中的类，不要使用org.hibernate的类
-	//@JoinColumn(name = "lawId",foreignKey = @ForeignKey(name = "null",value = ConstraintMode.NO_CONSTRAINT))//注意这里的@ForeignKey是javax.persistence包中的类，不要使用org.hibernate的类
+	// 级联刷新
+	// 属性optional表示该对象可有可无，其值为true时表示该外键可以为null，值为false时表示该外键为not null
+	// @ManyToOne(cascade = CascadeType.REFRESH,optional = false,fetch =
+	// FetchType.LAZY)
+	// 指定外键列(这也表示为所在对象为“关系被维护端”)
+	// @JoinColumn(name = "lawId")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "lawId", nullable = false)
+	// @JoinColumn(name = "lawId",foreignKey = @ForeignKey(name =
+	// "FK_R_Law_Article",value =
+	// ConstraintMode.NO_CONSTRAINT))//注意这里的@ForeignKey是javax.persistence包中的类，不要使用org.hibernate的类
+	// @JoinColumn(name = "lawId",foreignKey = @ForeignKey(name = "null",value =
+	// ConstraintMode.NO_CONSTRAINT))//注意这里的@ForeignKey是javax.persistence包中的类，不要使用org.hibernate的类
 	private Law law;
 
 	@Column(name = "piece", nullable = true, unique = false, length = 20)
