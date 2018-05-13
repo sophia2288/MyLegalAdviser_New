@@ -30,79 +30,78 @@ public class Doc implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer docId;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "briefId")
+	@JoinColumn(name = "briefId", nullable = false, unique = false)
 	private Brief brief;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "classId")
 	private Caseclass caseclass;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "courtCode")
+	@JoinColumn(name = "courtCode", nullable = false, unique = false)
 	private Court court;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="relatedDocId")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "relatedDocId", nullable = true)
 	private Doc doc;
-	
-	@Column(name = "title", nullable = false, unique = false, length=256)
+
+	@Column(name = "title", nullable = false, unique = false, length = 256)
 	private String title;
-	
-	@Column(name = "source", nullable = true, unique = false, length=100)
+
+	@Column(name = "source", nullable = true, unique = false, length = 100)
 	private String source;
-	
-	@Column(name = "caseNo", nullable = false, unique = false, length=30)
+
+	@Column(name = "caseNo", nullable = false, unique = false, length = 30)
 	private String caseNo;
-	
-	@Column(name = "category", nullable = false, unique = false, length=3)
+
+	@Column(name = "category", nullable = false, unique = false, length = 3)
 	private String category;
-	
-	@Column(name = "docCategory", nullable = false, unique = false, length=2)
+
+	@Column(name = "docCategory", nullable = false, unique = false, length = 2)
 	private String docCategory;
-	
-	@Column(name = "proceeding", nullable = false, unique = false, length=4)
+
+	@Column(name = "proceeding", nullable = false, unique = false, length = 4)
 	private String proceeding;
-	
-	@Column(name = "judge", nullable = true, unique = false, length=30)
+
+	@Column(name = "judge", nullable = true, unique = false, length = 30)
 	private String judge;
-	
+
 	@Column(name = "judgeDate", nullable = false, columnDefinition = "DATE")
 	private Date judgeDate;
-	
-	@Column(name = "litigant", nullable = true, unique = false, length=500)
+
+	@Column(name = "litigant", nullable = true, unique = false, length = 500)
 	private String litigant;
-	
-	@Column(name = "attorney", nullable = true, unique = false, length=500)
+
+	@Column(name = "attorney", nullable = true, unique = false, length = 500)
 	private String attorney;
-	
-	@Column(name = "keywords", nullable = true, unique = false, length=2048)
+
+	@Column(name = "keywords", nullable = true, unique = false, length = 2048)
 	private String keywords;
-	
-	@Column(name = "abbrevation", nullable = true, unique = false, length=2048)
+
+	@Column(name = "abbrevation", nullable = true, unique = false, length = 2048)
 	private String abbrevation;
-	
+
 	@Column(name = "isImportant", nullable = false, unique = false)
 	private Byte isImportant;
-	
-	@Column(name = "fullPathName", nullable = false, unique = false, length=255)
+
+	@Column(name = "fullPathName", nullable = false, unique = false, length = 255)
 	private String fullPathName;
-	
-	@OneToMany(targetEntity=Doc.class,mappedBy="doc",cascade= CascadeType.ALL)
+
+	@OneToMany(targetEntity = Doc.class, mappedBy = "doc", cascade = CascadeType.ALL)
 	private Set<Doc> docs = new HashSet<Doc>(0);
-	
+
 	@OneToMany(targetEntity = Judgepoint.class, mappedBy = "doc", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<Judgepoint> judgepoints = new HashSet<Judgepoint>(0);
-	
-	@ManyToMany(targetEntity = Article.class, fetch = FetchType.LAZY,cascade=CascadeType.ALL)    
-    @JoinTable(name = "doc_article", joinColumns = @JoinColumn(name = "docId"), inverseJoinColumns = @JoinColumn(name = "articleId"))
+
+	@ManyToMany(targetEntity = Article.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "doc_article", joinColumns = @JoinColumn(name = "docId"), inverseJoinColumns = @JoinColumn(name = "articleId"))
 	private Set<Article> articles = new HashSet<Article>(0);
-	
+
 	@OneToMany(targetEntity = Guidecase.class, mappedBy = "doc", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<Guidecase> guidecases = new HashSet<Guidecase>(0);
 

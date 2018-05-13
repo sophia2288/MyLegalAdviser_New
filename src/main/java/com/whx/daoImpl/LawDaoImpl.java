@@ -2,8 +2,6 @@ package com.whx.daoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.whx.dao.LawDao;
-import com.whx.entities.Article;
 import com.whx.entities.Law;
 
 @Repository("lawDao")

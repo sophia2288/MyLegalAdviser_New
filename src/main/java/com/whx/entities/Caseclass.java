@@ -38,7 +38,7 @@ public class Caseclass implements java.io.Serializable {
 	@JoinColumn(name = "briefId")
 	private Brief brief;
 	
-	@Column(name = "description", nullable = false, unique = true, length=1024)
+	@Column(name = "description", nullable = false, unique = false, length=2048)
 	private String description;
 	
 	@Column(name = "features", nullable = true, unique = false, length=2048)

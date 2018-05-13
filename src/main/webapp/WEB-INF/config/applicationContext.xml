@@ -6,7 +6,7 @@
 	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
-		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
@@ -36,7 +36,8 @@
 				<!-- 是否格式化sql，优化显示 -->
 				<prop key="hibernate.format_sql">true</prop>
 				<!-- 设置自动创建|更新|验证数据库表结构 -->
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
 				<!-- 指定hibernate在何时释放JDBC连接 -->
                 <prop key="hibernate.connection.release_mode">auto</prop>
                 <!--connection.useUnicode连接数据库时是否使用Unicode编码 -->

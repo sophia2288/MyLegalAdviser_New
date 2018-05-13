@@ -27,24 +27,25 @@ public class Court implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(length = 5)
 	private String courtCode;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="courtCode_h")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "courtCode_h", nullable = true)
 	private Court court;
-	
-	@Column(name = "name", nullable = false, unique = true, length=40)
+
+	@Column(name = "name", nullable = false, unique = true, length = 40)
 	private String name;
-	
+
 	@Column(name = "startDate", nullable = true, columnDefinition = "DATE")
 	private Date startDate;
-	
-	@Column(name = "formerName", nullable = true, unique = false, length=60)
+
+	@Column(name = "formerName", nullable = true, unique = false, length = 60)
 	private String formerName;
-	
-	@OneToMany(targetEntity=Court.class,mappedBy="court",cascade= CascadeType.ALL)
+
+	@OneToMany(targetEntity = Court.class, mappedBy = "court", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Court> courts = new HashSet<Court>(0);
-	
+
 	@OneToMany(targetEntity = Doc.class, mappedBy = "court", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<Doc> docs = new HashSet<Doc>(0);
 
@@ -56,7 +57,8 @@ public class Court implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Court(String courtCode, Court court, String name, Date startDate, String formerName, Set<Court> courts, Set<Doc> docs) {
+	public Court(String courtCode, Court court, String name, Date startDate, String formerName, Set<Court> courts,
+			Set<Doc> docs) {
 		this.courtCode = courtCode;
 		this.court = court;
 		this.name = name;

@@ -20,26 +20,27 @@ public class User implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(length = 60)
 	private String account;// 账号
-	
-	@Column(name="password",nullable=false,unique=false)
+
+	@Column(name = "password", nullable = false, unique = false, length = 60)
 	private String password;// 登录密码
-	
-	@Column(name="category",nullable=false,unique=false)
+
+	@Column(name = "category", nullable = false, unique = false, length = 7)
 	private String category;// 用户类别：普通用户、律师、公检法工作人员、高校教师、其他
-	
-	@Column(name="phone",nullable=false,unique=true)
+
+	@Column(name = "phone", nullable = false, unique = true, length = 13)
 	private String phone;// 联系电话
-	
-	@Column(name="email",nullable=false,unique=true)
+
+	@Column(name = "email", nullable = true, unique = false, length = 45)
 	private String email;// 电子信箱
-	
-	@Column(name="concerns",nullable=true,unique=false)
+
+	@Column(name = "concerns", nullable = true, unique = false, length = 1024)
 	private String concerns;// 用户关注点
-	
-	@Column(name="contributions",nullable=true,unique=false)
+
+	@Column(name = "contributions", nullable = true, unique = false)
 	private Short contributions;// 用户贡献的资料数量
-	
+
 	public User() {
 	}
 
@@ -49,15 +50,17 @@ public class User implements java.io.Serializable {
 		this.category = category;
 	}
 
-	public User(String account, String password, String category, String phone, String concerns, Short contributions) {
+	public User(String account, String password, String category, String phone, String email, String concerns,
+			Short contributions) {
 		this.account = account;
 		this.password = password;
 		this.category = category;
 		this.phone = phone;
+		this.email = email;
 		this.concerns = concerns;
 		this.contributions = contributions;
 	}
-	
+
 	public String getAccount() {
 		return this.account;
 	}
@@ -65,16 +68,16 @@ public class User implements java.io.Serializable {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	
+
 	public String getPassword() {
 		return this.password;
 	}
 
 	public void setPassword(String password) {
-		//String passwordMD5=common.Encrypter.md5Encrypt(password);
+		// String passwordMD5=common.Encrypter.md5Encrypt(password);
 		this.password = password;
 	}
-	
+
 	public String getCategory() {
 		return this.category;
 	}
@@ -82,7 +85,7 @@ public class User implements java.io.Serializable {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+
 	public String getPhone() {
 		return this.phone;
 	}

@@ -28,43 +28,44 @@ public class Guidecase implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(length = 9)
 	private String guideCaseNo;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "briefId")
+	@JoinColumn(name = "briefId", nullable = false)
 	private Brief brief;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "classId")
 	private Caseclass caseclass;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "docId")
 	private Doc doc;
-	
-	@Column(name = "title", nullable = false, unique = false, length=256)
+
+	@Column(name = "title", nullable = false, unique = false, length = 256)
 	private String title;
-	
-	@Column(name = "source", nullable = false, unique = false, length=50)
+
+	@Column(name = "source", nullable = false, unique = false, length = 50)
 	private String source;
-	
+
 	@Column(name = "pubDate", nullable = false, columnDefinition = "DATE")
 	private Date pubDate;
-	
-	@Column(name = "category", nullable = false, unique = false, length=3)
+
+	@Column(name = "category", nullable = false, unique = false, length = 3)
 	private String category;
-	
-	@Column(name = "keywords", nullable = true, unique = false, length=2048)
+
+	@Column(name = "keywords", nullable = true, unique = false, length = 2048)
 	private String keywords;
-	
-	@Column(name = "abbrevation", nullable = false, unique = false, length=2048)
+
+	@Column(name = "abbrevation", nullable = false, unique = false, length = 2048)
 	private String abbrevation;
-	
-	@Column(name = "fullPathName", nullable = false, unique = false, length=255)
+
+	@Column(name = "fullPathName", nullable = false, unique = false, length = 255)
 	private String fullPathName;
-	
-	@ManyToMany(targetEntity = Article.class, fetch = FetchType.LAZY,cascade=CascadeType.ALL)    
-    @JoinTable(name = "guidecase_article", joinColumns = @JoinColumn(name = "guideCaseNo"), inverseJoinColumns = @JoinColumn(name = "articleId"))
+
+	@ManyToMany(targetEntity = Article.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "guidecase_article", joinColumns = @JoinColumn(name = "guideCaseNo"), inverseJoinColumns = @JoinColumn(name = "articleId"))
 	private Set<Article> articles = new HashSet<Article>(0);
 
 	public Guidecase() {
@@ -83,7 +84,8 @@ public class Guidecase implements java.io.Serializable {
 	}
 
 	public Guidecase(String guideCaseNo, Brief brief, Caseclass caseclass, Doc doc, String title, String source,
-			Date pubDate, String category, String keywords, String abbrevation, String fullPathName, Set<Article> articles) {
+			Date pubDate, String category, String keywords, String abbrevation, String fullPathName,
+			Set<Article> articles) {
 		this.guideCaseNo = guideCaseNo;
 		this.brief = brief;
 		this.caseclass = caseclass;

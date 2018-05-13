@@ -28,53 +28,52 @@ public class Law implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer lawId;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "briefId")
 	private Brief brief;
-	
-	@Column(name = "fullName", nullable = false, unique = true, length=100)
+
+	@Column(name = "fullName", nullable = false, unique = true, length = 100)
 	private String fullName;
-	
-	@Column(name = "organ", nullable = false, unique = false, length=50)
+
+	@Column(name = "organ", nullable = false, unique = false, length = 50)
 	private String organ;
-	
-	@Column(name = "referenceNo", nullable = true, unique = false, length=50)
+
+	@Column(name = "referenceNo", nullable = true, unique = false, length = 50)
 	private String referenceNo;
-	
+
 	@Column(name = "publishDate", nullable = true, columnDefinition = "DATE")
 	private Date publishDate;
-	
+
 	@Column(name = "effectiveDate", nullable = false, columnDefinition = "DATE")
 	private Date effectiveDate;
-	
-	@Column(name = "prescription", nullable = false, unique = false)
+
+	@Column(name = "prescription", nullable = false, unique = false, length = 4)
 	private String prescription;
-	
-	@Column(name = "hierarchy", nullable = false, unique = false)
+
+	@Column(name = "hierarchy", nullable = false, unique = false, length = 11)
 	private String hierarchy;
-	
-	@Column(name = "classification", nullable = false, unique = false)
+
+	@Column(name = "classification", nullable = false, unique = false, length = 5)
 	private String classification;
-	
-	@Column(name = "classification1", nullable = false, unique = false)
+
+	@Column(name = "classification1", nullable = false, unique = false, length = 3)
 	private String classification1;
-	
-	@Column(name = "aliases", nullable = true, unique = false, length=500)
+
+	@Column(name = "aliases", nullable = true, unique = false, length = 500)
 	private String aliases;
-	
-	@Column(name = "fullPathName", nullable = true, unique = false, length=255)
+
+	@Column(name = "fullPathName", nullable = true, unique = false, length = 255)
 	private String fullPathName;
-	
+
 	@OneToMany(targetEntity = Article.class, mappedBy = "law", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<Article> articles = new HashSet<Article>(0);
-	
-	//private Set<Article> articles1 = new HashSet<Article>(0);
-	
+
+	// private Set<Article> articles1 = new HashSet<Article>(0);
 
 	public Law() {
 	}
