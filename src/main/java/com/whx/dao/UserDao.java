@@ -4,6 +4,7 @@ import java.util.List;
 import com.whx.entities.User;
 
 public interface UserDao {
+	
 	public void save(User user);
 
 	public void delete(User user);
@@ -19,4 +20,5 @@ public interface UserDao {
 	public List<String> getCategories();
 
 	public boolean exists(String account);// 检测用户名是否存在
+	
 }

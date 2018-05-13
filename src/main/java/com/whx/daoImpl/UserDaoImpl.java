@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
 	private HibernateTemplate hibernateTemplate;
 
 	public UserDaoImpl() {
-		System.out.println("UserDaoImpl");
+		System.out.println("UserDaoImpl()");
 	}
 
 	public void save(User user) {

@@ -24,13 +24,15 @@ public class Brief implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="briefId",length=12)
+	@Column(length=12)
 	private String briefId;
 	
-	@Column(name = "briefName", nullable = false, unique = true, length=40)
+	//@Column(name = "briefName", nullable = false, unique = true, length=40)
+	@Column(nullable = false, unique = true, length=40)
 	private String briefName;
 	
-	@Column(name = "aliases", nullable = true, unique = false, length=40)
+	//@Column(name = "aliases", nullable = true, unique = false, length=40)
+	@Column(length=40)
 	private String aliases;
 	
 	@OneToMany(targetEntity = Guidecase.class, mappedBy = "brief", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)

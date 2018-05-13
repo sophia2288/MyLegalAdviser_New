@@ -6,11 +6,13 @@ public interface LawDao {
 
 	public void save(Law law);
 
-	public boolean delete(Law law);
+	public void delete(Law law);
+	
+	public void delete(int lawId);
 
-	public boolean delete(String fullName);
+	public void delete(String fullName);
 
-	public boolean update(Law law);
+	public void update(Law law);
 
 	public Law findById(int lawId);
 

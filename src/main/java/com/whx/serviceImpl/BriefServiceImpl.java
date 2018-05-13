@@ -1,43 +1,52 @@
 package com.whx.serviceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.whx.dao.BriefDao;
 import com.whx.entities.Brief;
 import com.whx.service.BriefService;
 
+@Service
 public class BriefServiceImpl implements BriefService{
 
+	@Autowired
+	private BriefDao briefDao;
+	
+	public BriefServiceImpl() {
+		System.out.println("BriefServiceImpl()");
+	}
+	
 	public void addBrief(Brief brief) {
-		// TODO Auto-generated method stub
-		
+		if(!exists(brief.getBriefId()))
+			briefDao.save(brief);
 	}
 
 	public void deleteBrief(Brief brief) {
-		// TODO Auto-generated method stub
-		
+		if(exists(brief.getBriefId()))
+			briefDao.delete(brief);
 	}
 
 	public void deleteBrief(String briefId) {
-		// TODO Auto-generated method stub
-		
+		if(exists(briefId))
+			briefDao.deleteI(briefId);
 	}
 
 	public void updateBrief(Brief brief) {
-		// TODO Auto-generated method stub
-		
+		if(exists(brief.getBriefId()))
+			briefDao.update(brief);
 	}
 
 	public Brief getBrief(String briefId) {
-		// TODO Auto-generated method stub
-		return null;
+		return briefDao.findById(briefId);
 	}
 
 	public boolean exists(String briefId) {
-		// TODO Auto-generated method stub
-		return false;
+		return briefDao.exists(briefId);
 	}
 
 	public boolean existsN(String briefName) {
-		// TODO Auto-generated method stub
-		return false;
+		return briefDao.existsN(briefName);
 	}
 
 }

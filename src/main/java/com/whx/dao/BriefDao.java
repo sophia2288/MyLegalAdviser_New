@@ -9,6 +9,8 @@ public interface BriefDao {
 	public void update(Brief brief);
 
 	public void delete(Brief brief);
+	
+	public void deleteI(String briefId);
 
 	public void delete(String briefName);
 

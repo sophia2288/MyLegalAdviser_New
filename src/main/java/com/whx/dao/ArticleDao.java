@@ -9,11 +9,11 @@ public interface ArticleDao {
 
 	public void save(Article article);
 
-	public boolean delete(Article article);
+	public void delete(Article article);
 
-	public boolean delete(int articleId);
+	public void delete(int articleId);
 
-	public boolean update(Article article);
+	public void update(Article article);
 
 	public Article findById(int articleId);
 	

@@ -2,10 +2,8 @@ package com.whx.daoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.whx.dao.LawDao;
@@ -14,33 +12,44 @@ import com.whx.entities.Law;
 @Repository("lawDao")
 public class LawDaoImpl implements LawDao{
 	/***** 注入 *****/
+	//@Autowired
+	//@Qualifier("sessionFactory")
+	//private SessionFactory sessionFactory;
+	
 	@Autowired
-	@Qualifier("sessionFactory")
-	private SessionFactory sessionFactory;
+	private HibernateTemplate hibernateTemplate;
 	
 	public LawDaoImpl() {
-		System.out.println("LawDaoImpl");
+		System.out.println("LawDaoImpl()");
 	}
 
 	public void save(Law law) {
-		sessionFactory.getCurrentSession().saveOrUpdate(law);
+		//sessionFactory.getCurrentSession().saveOrUpdate(law);
+		hibernateTemplate.save(law);
 	}
 
-	public boolean delete(Law law) {
-		String hql = "delete Law l where l.lawId=?";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		query.setLong(0, law.getLawId());
-		return (query.executeUpdate() > 0);
+	public void delete(Law law) {
+		//String hql = "delete Law l where l.lawId=?";
+		//Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		//query.setLong(0, law.getLawId());
+		//return (query.executeUpdate() > 0);
+		hibernateTemplate.delete(law);
+	}
+	
+	public void delete(int lawId) {
+		hibernateTemplate.bulkUpdate("delete Law l where l.lawId = ?", new Object[]{lawId});
 	}
 
-	public boolean delete(String fullName) {
-		String hql = "delete Law l where l.fullName=?";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		query.setString(0, fullName);
-		return (query.executeUpdate() > 0);
+	public void delete(String fullName) {
+		//String hql = "delete Law l where l.fullName=?";
+		//Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		//query.setString(0, fullName);
+		//return (query.executeUpdate() > 0);
+		hibernateTemplate.bulkUpdate("delete Law l where l.fullName = ?", new Object[]{fullName});
 	}
 
-	public boolean update(Law law) {
+	public void update(Law law) {
+		/*
 		String hql = "update Law l set l.fullName=?,l.organ=?,l.referenceNo=?,l.publishDate=?,l.effectiveDate=?,l.prescription=?,l.hierarchy=?,l.classification=?,l.classification1=?,l.aliases=?,l.fullPathName=? where l.lawId=?";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, law.getFullName());
@@ -57,21 +66,21 @@ public class LawDaoImpl implements LawDao{
 		query.setLong(11, law.getLawId());
 
 		return (query.executeUpdate() > 0);
+		*/
+		hibernateTemplate.update(law);
 	}
 
 	public Law findById(int lawId) {
-		return (Law) sessionFactory.getCurrentSession().get(Law.class, lawId);
+		return (Law) hibernateTemplate.get(Law.class, lawId);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Law findByFullName(String fullName) {
 		List<Law> lawList = new ArrayList<Law>();
 		String hql = "from Law l where l.fullName = :fullName";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("fullName", fullName);
-		lawList = query.list();
-		if(lawList.size()>0)
-			return lawList.get(0);
-		return null;
+		lawList = (List<Law>) hibernateTemplate.findByNamedParam(hql, "fullName", fullName);
+		
+		return lawList.get(0);
 	}
 
 	/*
@@ -84,8 +93,7 @@ public class LawDaoImpl implements LawDao{
 	public boolean exists(int lawId) {
 		List<Law> lawList = new ArrayList<Law>();
 		String hql = "from Law l where l.lawId = :lawId";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("lawId", lawId);
-		lawList = query.list();
+		lawList = (List<Law>) hibernateTemplate.findByNamedParam(hql, "lawId", lawId);
 		
 		return lawList.size() > 0 ? true : false;
 	}
@@ -94,9 +102,9 @@ public class LawDaoImpl implements LawDao{
 	public boolean exists(String fullName) {
 		List<Law> lawList = new ArrayList<Law>();
 		String hql = "from Law l where l.fullName = :fullName";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("fullName", fullName);
-		lawList = query.list();
+		lawList = (List<Law>) hibernateTemplate.findByNamedParam(hql, "fullName", fullName);
 		
 		return lawList.size() > 0 ? true : false;
 	}
+	
 }

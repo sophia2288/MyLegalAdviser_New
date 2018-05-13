@@ -16,6 +16,6 @@ public interface BriefService {
 	
 	public boolean exists(String briefId);
 
-	public boolean existsN(String briefName);// 检测指定名称的案由是否存在
+	public boolean existsN(String briefName);
 	
 }

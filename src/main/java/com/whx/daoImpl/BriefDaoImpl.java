@@ -18,7 +18,7 @@ public class BriefDaoImpl implements BriefDao{
 	private HibernateTemplate hibernateTemplate;
 	
 	public BriefDaoImpl() {
-		System.out.println("BriefDaoImpl");
+		System.out.println("BriefDaoImpl()");
 	}
 	
 	public void save(Brief brief) {
@@ -31,6 +31,10 @@ public class BriefDaoImpl implements BriefDao{
 
 	public void delete(Brief brief) {
 		hibernateTemplate.delete(brief);
+	}
+	
+	public void deleteI(String briefId) {
+		hibernateTemplate.bulkUpdate("delete Brief bf where bf.briefId = ?", new Object[]{briefId});
 	}
 
 	public void delete(String briefName) {
