@@ -16,6 +16,10 @@ public class GuidecaseDaoImpl implements GuidecaseDao{
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 	
+	public GuidecaseDaoImpl() {
+		System.out.println("GuidecaseDaoImpl()");
+	}
+	
 	public void save(Guidecase guidecase) {
 		hibernateTemplate.save(guidecase);
 	}
