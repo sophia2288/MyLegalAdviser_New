@@ -12,7 +12,7 @@ public interface BriefService {
 
 	public void updateBrief(Brief brief);
 	
-	public Brief getBrief(String briefId);
+	public Brief getBriefById(String briefId);
 	
 	public boolean exists(String briefId);
 

@@ -28,7 +28,8 @@ public class Brief implements java.io.Serializable {
 	private String briefId;
 	
 	//@Column(name = "briefName", nullable = false, unique = true, length=40)
-	@Column(nullable = false, unique = true, length=40)
+	//@Column(nullable = false, unique = true, length=40)
+	@Column(nullable = false, unique = false, length=40)
 	private String briefName;
 	
 	//@Column(name = "aliases", nullable = true, unique = false, length=40)

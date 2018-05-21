@@ -1,5 +1,7 @@
 package com.whx.dao;
 
+import java.util.List;
+
 import com.whx.entities.Brief;
 
 public interface BriefDao {
@@ -16,7 +18,7 @@ public interface BriefDao {
 
 	public Brief findById(String briefId);
 
-	public Brief findByBriefName(String briefName);
+	public List<Brief> findByBriefName(String briefName);
 
 	public boolean exists(String briefId);// 检测指定编号的案由是否存在
 

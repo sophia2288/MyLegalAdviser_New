@@ -46,11 +46,11 @@ public class BriefDaoImpl implements BriefDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	public Brief findByBriefName(String briefName) {
+	public List<Brief> findByBriefName(String briefName) {
 		List<Brief> briefList = new ArrayList<Brief>();
 		String hql = "from Brief bf where bf.briefName = :briefName";
 		briefList = (List<Brief>) hibernateTemplate.findByNamedParam(hql, "briefName", briefName);
-		return briefList.get(0);
+		return briefList;
 	}
 
 	@SuppressWarnings("unchecked")

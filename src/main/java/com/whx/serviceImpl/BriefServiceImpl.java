@@ -37,7 +37,7 @@ public class BriefServiceImpl implements BriefService{
 			briefDao.update(brief);
 	}
 
-	public Brief getBrief(String briefId) {
+	public Brief getBriefById(String briefId) {
 		return briefDao.findById(briefId);
 	}
 
