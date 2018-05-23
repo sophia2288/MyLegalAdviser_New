@@ -30,9 +30,6 @@ public class InputBrief {
 			while ((s = in.readLine()) != null) {
 				Matcher matcher = pattern.matcher(s);
 				if (matcher.find()) {
-					//System.out.print(matcher.group(4));
-					//System.out.print("  ");
-					//System.out.println(matcher.group(6));
 					Brief brief=new Brief();
 					brief.setBriefId(matcher.group(6));
 					brief.setBriefName(matcher.group(4));
