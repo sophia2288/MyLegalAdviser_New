@@ -26,7 +26,7 @@ public class BriefController {
 		return "uploadBriefForm";
 	}
 
-	// 上传文件会自动绑定到MultipartFile中
+	// 上传的文件会被自动绑定到MultipartFile中
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	// public String upload(HttpServletRequest request, @RequestParam("description")
 	// String description,@RequestParam("file") MultipartFile file) throws Exception
