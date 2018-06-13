@@ -18,7 +18,7 @@ public class CourtServiceImpl implements CourtService {
 	}
 	
 	public void addCourt(Court court) {
-		if(!exists(court.getCourtCode()))
+		//if(!exists(court.getCourtCode()))
 			courtDao.save(court);
 	}
 
@@ -40,6 +40,11 @@ public class CourtServiceImpl implements CourtService {
 	public Court getCourt(String courtCode) {
 		return courtDao.findById(courtCode);
 	}
+	
+	
+	public Court getCourtByCourtName(String courtName) {
+		return courtDao.findByCourtName(courtName);
+	}
 
 	public boolean exists(String courtCode) {
 		return courtDao.exists(courtCode);
@@ -48,5 +53,4 @@ public class CourtServiceImpl implements CourtService {
 	public boolean existsN(String name) {
 		return courtDao.existsN(name);
 	}
-
 }

@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>文件上传（案由--上传之前确保文件格式正确）</h2>
-	<form action="uploadBrief" enctype="multipart/form-data" method="post">
+	<h2>文件上传（法院--上传之前确保文件格式正确）</h2>
+	<form action="uploadCourt" enctype="multipart/form-data" method="post">
 		<table>
 			<tr>
 				<td>文件描述:</td>
@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td>请选择文件:</td><!-- application/msword -->
-				<td><input type="file" name="file" accept="text/plain"></td>
+				<td><input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="上传"></td>

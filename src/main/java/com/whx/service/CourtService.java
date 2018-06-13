@@ -14,6 +14,8 @@ public interface CourtService {
 	
 	public Court getCourt(String courtCode);
 	
+	public Court getCourtByCourtName(String courtName);
+	
 	public boolean exists(String courtCode);
 
 	public boolean existsN(String name);

@@ -1,0 +1,99 @@
+// 上传的文件会被自动绑定到MultipartFile中
+	@RequestMapping(value = "/uploadCourt", method = RequestMethod.POST)
+	public String uploadCourt(@RequestParam("file") MultipartFile uploadFile) throws Exception {
+		if (uploadFile.getSize() > 0) {
+			String fileName = uploadFile.getOriginalFilename();
+			fileName = fileName.toLowerCase();
+			InputStream in = uploadFile.getInputStream();// 载入文档
+			if (fileName.endsWith("docx")) {
+				XWPFDocument xwpf = new XWPFDocument(in);// 得到word文档的信息
+				Iterator<XWPFTable> it = xwpf.getTablesIterator();// 得到word中的表格
+
+				while (it.hasNext()) {// 以下代码把最高人民法院、省高级人民法院和市中级人民法院写入数据库
+					XWPFTable table = it.next();
+					List<XWPFTableRow> rows = table.getRows();
+					// 读取每一行数据
+					for (int i = 0; i < rows.size(); i++) {
+						XWPFTableRow row = rows.get(i);// 读取当前行
+
+						List<XWPFTableCell> cells = row.getTableCells();// 当前行所有的列
+						assert (cells.size() >= 2);// 列数必须是2及以上
+						XWPFTableCell courtName = cells.get(0);// 读取法院名称
+						XWPFTableCell courtCode = cells.get(1);// 读取法院代字
+						String regexStr = "^(最高法)|(([京津冀晋内辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵])(\\d{2})?)$";
+						Pattern pattern = Pattern.compile(regexStr);
+						Matcher matcher = pattern.matcher(courtCode.getText());
+
+						if (matcher.find()) {
+							if ((matcher.group(1) != null) && (matcher.group(1).equals("最高法"))) {// 最高人民法院
+								Court court = new Court();
+								court.setCourtCode(courtCode.getText());
+								court.setName(courtName.getText());
+
+								courtService.addCourt(court);
+							}
+							if ((matcher.group(3) != null) && (matcher.group(4) == null)) {// 省高级人民法院
+								Court court = new Court();
+								court.setCourtCode(courtCode.getText());
+								court.setName(courtName.getText());
+								court.setCourt(courtService.getCourt("最高法"));
+
+								courtService.addCourt(court);
+							}
+							if ((matcher.group(3) != null) && (matcher.group(4) != null)) {// 市中级人民法院
+								Court court = new Court();
+								court.setCourtCode(courtCode.getText());
+								court.setName(courtName.getText());
+								court.setCourt(courtService.getCourt(matcher.group(3)));
+
+								courtService.addCourt(court);
+							}
+						}
+					}
+				} // while loop end.
+
+				while (it.hasNext()) {// 以下代码把基层法院写入数据库
+					XWPFTable table = it.next();
+					List<XWPFTableRow> rows = table.getRows();
+					int i = 0;
+					while (i < rows.size()) {
+						XWPFTableRow row = rows.get(i);// 读取当前行
+
+						List<XWPFTableCell> cells = row.getTableCells();// 得到当前行所有的列
+						assert (cells.size() >= 2);// 确保列数必须是2及以上
+
+						XWPFTableCell courtCode = cells.get(1);// 读取法院代字
+						String regexStr = "^[京津冀晋内辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]\\d{2}$";
+						Pattern pattern = Pattern.compile(regexStr);
+						Matcher matcher = pattern.matcher(courtCode.getText());
+
+						if (matcher.find()) {// 定位到中院
+							while (true) {
+								XWPFTableRow rowL = rows.get(++i);// 获取中院下面的一行
+								List<XWPFTableCell> cellsL = rowL.getTableCells();
+
+								assert (cellsL.size() >= 2);// 确保列数必须是2及以上
+								XWPFTableCell courtNameL = cellsL.get(0);// 读取法院名称
+								XWPFTableCell courtCodeL = cellsL.get(1);// 读取法院代字
+								String regexStrL = "^[京津冀晋内辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]\\d{4}$";
+								Pattern patternL = Pattern.compile(regexStrL);
+								Matcher matcherL = patternL.matcher(courtCodeL.getText());
+								if (matcherL.find()) {
+									Court court = new Court();
+									court.setCourtCode(courtCodeL.getText());
+									court.setName(courtNameL.getText());
+									court.setCourt(courtService.getCourt(courtCode.getText()));
+
+									courtService.addCourt(court);
+								} else
+									break;
+							}
+						} else
+							i++;
+					} // while loop end.
+				}
+				xwpf.close();
+			}
+		}
+		return "error";
+	}

@@ -18,6 +18,24 @@
 	<mvc:resources mapping="/*.html" location="/html/" />
 	<mvc:resources mapping="/*.htm" location="/" />
 	<mvc:resources mapping="/*.txt" location="/txt/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/datepicker/My97DatePicker/**" location="/datepicker/My97DatePicker/" />
+	
+	<mvc:annotation-driven conversion-service="conversionService" />
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="registerDefaultFormatters" value="true" />
+        <property name="formatterRegistrars">
+            <set>
+                <bean class="org.springframework.format.datetime.DateFormatterRegistrar">
+                    <property name="formatter" ref="dateFormatter"></property>
+                </bean>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="dateFormatter" class="org.springframework.format.datetime.DateFormatter">
+        <property name="pattern" value="yyyy-MM-dd"></property>
+    </bean>
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

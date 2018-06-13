@@ -21,7 +21,7 @@ public class CourtDaoImpl implements CourtDao{
 	}
 	
 	public void save(Court court) {
-		hibernateTemplate.save(court);
+		hibernateTemplate.saveOrUpdate(court);
 	}
 
 	public void update(Court court) {

@@ -18,7 +18,7 @@ public class LawServiceImpl implements LawService {
 	}
 
 	public void addLaw(Law law) {
-		if(!exists(law.getLawId()))
+		//if(!exists(law.getLawId()))
 			lawDao.save(law);
 	}
 

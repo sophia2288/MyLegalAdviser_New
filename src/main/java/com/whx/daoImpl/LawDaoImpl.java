@@ -25,7 +25,7 @@ public class LawDaoImpl implements LawDao{
 
 	public void save(Law law) {
 		//sessionFactory.getCurrentSession().saveOrUpdate(law);
-		hibernateTemplate.save(law);
+		hibernateTemplate.saveOrUpdate(law);
 	}
 
 	public void delete(Law law) {

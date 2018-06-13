@@ -2,8 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript" src="/MyLegalAdviser/datepicker/My97DatePicker/WdatePicker.js">
+</script>
 <title>index</title>
 </head>
-<body>Welcome you to browser our site!
+<body>
+	Welcome you to browser our site!2018.6.11
+	<form action="form_action.asp" method="get">
+		<p>
+			<label for="publishDate">发布日期: </label> 
+			<input id="publishDate" type="text" style="width: 140px; height: 25px" onClick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+		</p>
+		<input type="submit" value="Submit" />
+	</form>
 </body>
 </html>
