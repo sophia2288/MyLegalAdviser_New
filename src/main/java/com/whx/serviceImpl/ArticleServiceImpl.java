@@ -21,7 +21,7 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	public void addArticle(Article article) {
-		if(!exists(article.getArticleId()))
+		//if(!exists(article.getArticleId()))
 			articleDao.save(article);
 	}
 

@@ -22,7 +22,7 @@ public class ArticleDaoImpl implements ArticleDao {
 	}
 
 	public void save(Article article) {
-		hibernateTemplate.save(article);
+		hibernateTemplate.saveOrUpdate(article);
 	}
 
 	public void delete(Article article) {
