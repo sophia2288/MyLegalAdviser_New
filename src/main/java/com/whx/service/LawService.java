@@ -14,6 +14,8 @@ public interface LawService {
 	
 	public Law getLaw(int lawId);
 	
+	public Law getLawByFullName(String fullName);
+	
 	public boolean exists(int lawId);
 
 	public boolean exists(String fullName);

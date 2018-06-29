@@ -20,6 +20,9 @@
 	<mvc:resources mapping="/*.txt" location="/txt/" />
 	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/datepicker/My97DatePicker/**" location="/datepicker/My97DatePicker/" />
+	<mvc:resources mapping="/jquery-ui-1.12.1/external/**" location="/jquery-ui-1.12.1/external/" />
+	<mvc:resources mapping="/jquery-ui-1.12.1/**" location="/jquery-ui-1.12.1/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
 	
 	<mvc:annotation-driven conversion-service="conversionService" />
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">

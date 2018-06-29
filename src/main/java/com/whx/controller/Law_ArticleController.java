@@ -3,7 +3,9 @@ package com.whx.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,14 +41,29 @@ public class Law_ArticleController {
 		prescription.add("已被修改");
 		prescription.add("已废止");
 		model.addAttribute("prescriptions", prescription);
+		
+		Map<String,String> prescription1=new HashMap<String,String>();
+		prescription1.put("现行有效", "现行有效");
+		prescription1.put("已被修改", "已被修改");
+		prescription1.put("已废止", "已废止");
+		model.addAttribute("prescriptions1", prescription1);
 
-		return "UploadLawForm_JQuery";
+		return "UploadLawForm_JQuery2";
 	}
 
 	@RequestMapping(value = "/saveLaw")
 	public String saveLaw(@ModelAttribute Law law, @RequestParam("file") MultipartFile uploadFile, Model model)
 			throws IOException {
+		if("".equals(law.getBrief().getBriefId())||law.getBrief().getBriefId().isEmpty()) {
+			law.setBrief(null);
+		}
 		lawService.addLaw(law);
+		writeArticles(law,uploadFile);
+		
+		return "LawDetails";
+	}
+	
+	private void writeArticles(Law law,MultipartFile uploadFile) throws IOException {
 		if (uploadFile.getSize() > 0) {
 			String fileName = uploadFile.getOriginalFilename();
 			InputStream in = uploadFile.getInputStream();// 载入文档
@@ -93,7 +110,6 @@ public class Law_ArticleController {
 			}
 			in.close();
 		}
-		return "LawDetails";
 	}
 	
 	//工具函数：将数字转换成中文数字

@@ -18,8 +18,13 @@ public class LawServiceImpl implements LawService {
 	}
 
 	public void addLaw(Law law) {
-		//if(!exists(law.getLawId()))
+		/*
+		if(!exists(law.getFullName()))
 			lawDao.save(law);
+		else
+			lawDao.update(getLawByFullName(law.getFullName()));
+		*/
+		lawDao.save(law);
 	}
 
 	public void deleteLaw(Law law) {
@@ -40,11 +45,18 @@ public class LawServiceImpl implements LawService {
 	public Law getLaw(int lawId) {
 		return lawDao.findById(lawId);
 	}
+	
+	@Override
+	public Law getLawByFullName(String fullName) {
+		return lawDao.findByFullName(fullName);
+	}
 
+	@Override
 	public boolean exists(int lawId) {
 		return lawDao.exists(lawId);
 	}
 
+	@Override
 	public boolean exists(String fullName) {
 		return lawDao.exists(fullName);
 	}
