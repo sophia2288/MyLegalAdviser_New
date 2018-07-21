@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
 public class BuildJSonString {
 	public static void main(String[] args) throws IOException {
 		BufferedReader in = null;
-		String regexStr = "^([\\u4e00-\\u9fa5]{1,25})\\s*((\\d{3}){1,4})\\s*$";
+		//String regexStr = "^([\\u4e00-\\u9fa5]{1,25})\\s*((\\d{3}){1,4})\\s*$";
+		String regexStr = "^(([\\u4e00-\\u9fa5]{1,20}、?)+)\\s*((\\d{3}){1,4})\\s*$";
 		Pattern pattern = Pattern.compile(regexStr);
 
 		try {
@@ -23,7 +24,7 @@ public class BuildJSonString {
 				Matcher matcher = pattern.matcher(s);
 				if (matcher.find()) {
 					//格式：{ label: "人格权纠纷", value: "001001" },
-					String temp = "{ label: " + "\"" + matcher.group(1) + "\", value: " + "\"" + matcher.group(2) +"\" },\r\n";
+					String temp = "{ label: " + "\"" + matcher.group(1) + "\", value: " + "\"" + matcher.group(3) +"\" },\r\n";
 					jsonStr += temp;
 				}
 			}
