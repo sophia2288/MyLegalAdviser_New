@@ -20,6 +20,7 @@
         <p>
             <label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码: </label>
             <form:password id="password" path="password" style="width:140px;height:25px"/>
+            
         </p>
         <p>
             <label for="category">类&nbsp;&nbsp;&nbsp;&nbsp;别: </label>

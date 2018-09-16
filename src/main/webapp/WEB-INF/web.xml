@@ -29,7 +29,6 @@
 			<param-value>/WEB-INF/config/MyLegalAdviser-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-		
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MyLegalAdviser</servlet-name>

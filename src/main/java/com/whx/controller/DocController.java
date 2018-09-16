@@ -13,9 +13,12 @@ public class DocController {
 	@Autowired
 	private DocService docService;
 	
+	
 	@RequestMapping(value = "/docInput")
 	public String docInput(Model model) {
 		model.addAttribute("doc", new Doc());
+		
+		
 		
 		return "UploadDocForm2";
 	}
