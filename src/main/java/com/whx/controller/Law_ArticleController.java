@@ -48,7 +48,7 @@ public class Law_ArticleController {
 		prescription1.put("已废止", "已废止");
 		model.addAttribute("prescriptions1", prescription1);
 
-		return "UploadLawForm_JQuery2";
+		return "UploadLawForm_JQuery4";
 	}
 
 	@RequestMapping(value = "/saveLaw")
@@ -63,6 +63,7 @@ public class Law_ArticleController {
 		return "LawDetails";
 	}
 	
+	//向数据库表article写入法律条款
 	private void writeArticles(Law law,MultipartFile uploadFile) throws IOException {
 		if (uploadFile.getSize() > 0) {
 			String fileName = uploadFile.getOriginalFilename();

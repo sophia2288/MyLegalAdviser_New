@@ -22,7 +22,9 @@
 	<mvc:resources mapping="/bootstrap-4.1.2-dist/css/**" location="/bootstrap-4.1.2-dist/css/" />
 	<mvc:resources mapping="/bootstrap-4.1.2-dist/js/**" location="/bootstrap-4.1.2-dist/js/" />
 	<mvc:resources mapping="/datepicker/My97DatePicker/**" location="/datepicker/My97DatePicker/" />
-	<mvc:resources mapping="/jquery-ui-1.12.1/external/**" location="/jquery-ui-1.12.1/external/" />
+	<mvc:resources mapping="/jquery/**" location="/jquery/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/jquery-ui-1.12.1/**" location="/jquery-ui-1.12.1/" />
 	<mvc:resources mapping="/jquery-ui-1.12.1/**" location="/jquery-ui-1.12.1/" />
 	<mvc:resources mapping="/images/**" location="/images/" />
 	
