@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Word文件上传测试</title>
+    <script type="text/javascript">
+        function readAsText() {
+            var file = document.getElementById("file").files[0];
+            var reader = new FileReader();
+            reader.readAsText(file,'gbk');
+            //reader.readAsBinaryString(file);
+            reader.onload = function (e) {
+                var result = document.getElementById("result");
+                result.innerHTML = this.result;
+                //result.innerHTML = file.type
+            }
+        }
+    </script>
+</head>
+
+<body>
+        请选择文本文件:
+    <input type="file" id="file" onchange="readAsText();" />
+
+    <div name="result" id="result">
+        <!--这里显示文件内容-->
+    </div>
+</body>
+
+</html>

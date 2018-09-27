@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>文件上传测试</title>
+<script type="text/javascript">
+	function test() {
+		var imgInput = document.getElementById('images');
+		
+		//1.获取所有选中文件列表
+		var fileList = imgInput.files;
+		
+		//2.遍历显示信息
+		for (var i = 0; i < fileList.length; i++) {
+			var file = fileList[i];
+			//一次读取文件的文件名，文件类型，文件大小
+			var div = document.createElement('div');
+			div.innerHTML = "第" + (i + 1) + "个文件的文件名：" + file.name + "，文件类型："
+					+ file.type + "，文件大小：" + file.size;
+			//添加到 body中
+			document.body.appendChild(div);
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>File API Demo</h1>
+	<p>
+		<input id="images" type="file" multiple accept="image/*" onchange="test()" />
+	</p>
+</body>
+</html>

@@ -20,6 +20,6 @@ public class DocController {
 		
 		
 		
-		return "UploadDocForm2";
+		return "UploadDocForm3";
 	}
 }

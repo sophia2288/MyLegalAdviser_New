@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>文件上传测试</title>
+<script type="text/javascript">
+	//判断浏览器是否支持FileReader对象
+	function test1() {
+		var reader;
+		if (FileReader) {
+			reader = new FileReader();
+		} else {
+			alert('您的浏览器不支持FileReader对象');
+			return;
+		}
+
+		//1.读取为文本
+		var file1 = document.getElementById('file1');
+		var file = file1.files[0];
+		//判断读取的第一个文件是否是文本文件
+		if (/text\/\w+/.test(file.type)) {
+			//以文本的方式读取内容
+			reader.readAsText(file, 'gbk');
+			reader.onload = function() {
+				document.getElementById('result').innerHTML = reader.result;
+			}
+		} else {
+			alert('读取的不是文本文件');
+		}
+	}
+
+	function test2() {
+		var reader;
+		if (FileReader) {
+			reader = new FileReader();
+		} else {
+			alert('您的浏览器不支持FileReader对象');
+			return;
+		}
+
+		//2.读取为二进制
+		var file2 = document.getElementById('file2');
+		var file = file2.files[0];
+		//以二进制流的方式读取第一个文件
+		reader.readAsArrayBuffer(file);  //返回二进制数组
+		//reader.readAsBinaryString(file); //返回二进制字符串
+		reader.onload = function() {
+			//alert("hello,world!");
+			document.getElementById('result').innerHTML = reader.result;
+		}
+	}
+
+	function test3() {
+		var reader;
+		if (FileReader) {
+			reader = new FileReader();
+		} else {
+			alert('您的浏览器不支持FileReader对象');
+			return;
+		}
+
+		//3.读取为DataURL
+		var file3 = document.getElementById('file3');
+		var file = file3.files[0];
+		reader.readAsDataURL(file);
+		reader.onload = function() {
+			alert("hello,world!");
+			document.getElementById('result').innerHTML = reader.result;
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>File API Demo</h1>
+	<div>
+		读取文本文件： <input type="file" id="file1" onchange="test1()" />
+	</div>
+	<div>
+		读取为二进制： <input type="file" id="file2" onchange="test2()" />
+	</div>
+	<div>
+		读取为DataURL： <input type="file" id="file3" accept="*" onchange="test3()" />
+	</div>
+	<p id="result"
+		style="width: 100%; word-break: break-all; word-wrap: break-word;"></p>
+</body>
+</html>

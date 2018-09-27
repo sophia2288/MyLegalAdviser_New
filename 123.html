@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script>
+        var mammoth = require("mammoth");
+
+        mammoth.extractRawText({ path: "test.docx" })
+            .then(function (result) {
+                var text = result.value; // The raw text 
+                console.log(text);
+                var messages = result.messages;
+                console.log(result);
+            }).done();
+    </script>
+</head>
+
+<body>
+    <form action="" method="get">
+        E-mail: <input type="email" name="user_email" /><br />
+        <input type="submit" />
+    </form>
+    <textarea id="myText" rows="40" cols="60">
+        
+    </textarea>
+</body>
+
+</html>

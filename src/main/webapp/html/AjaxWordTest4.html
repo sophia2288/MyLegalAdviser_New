@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传测试</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function sub() {
+            var fileObj = document.getElementById("upload").files[0];
+            var formFile = new FormData();
+            formFile.append("wordfile", fileObj);
+
+            $.ajax({
+                type: "post",
+                url: "ajaxTest",
+                data: formFile,
+                async: true,
+                //dataType: "json",
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $("#myDiv").html(result);
+                },
+                error: function () {
+                    alert("error!!!");
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>File API Demo</h1>
+    <form action="javascript:void(0)" enctype="multipart/form-data" method="post">
+        上传Word文档： <input type="file" id="upload" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            onchange="sub()">
+        <!-- <input type="button" value="上传"  onclick="sub()"> -->
+        <div id="myDiv"></div>
+    </form>
+    
+</body>
+
+</html>

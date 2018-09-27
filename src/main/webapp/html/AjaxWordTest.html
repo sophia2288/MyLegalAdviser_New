@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传测试</title>
+    <script src="../../jquery/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        //判断浏览器是否支持FileReader对象
+        function sub() {
+        	alert("hello world!");
+            var fileObj = document.getElementById("upload").files[0];
+            var formFile = new FormData();
+            formFile.append("wordfile", fileObj);
+            $.ajax({
+                type: "post",
+                url: "http://localhost:8080/MyLegalAdviser/" + "ajaxTest",
+                data: formFile,
+                dataType: "json",
+                cache: false,
+                processData: false,
+                contentType: false,
+                /* xhrFields: {
+                    withCredentials: true,
+                },
+                crossDomain: true, */
+                success: function (data) {
+                    alert(data.info);
+                },
+                error: function (err) {
+                    alert("error!!!");
+                },
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>File API Demo</h1>
+    <form action="javascript:void(0)" enctype="multipart/form-data" method="post">
+        读取为二进制： <input type="file" name="wordfile" id="upload" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+        <input type="button" value="上传" onclick="sub()">
+    </form>
+
+    <p id="result" style="width: 100%; word-break: break-all; word-wrap: break-word;"></p>
+    <div>
+        Progessing (in Bytes): <span id="bytesRead"> </span> / <span id="bytesTotal"></span>
+    </div>
+    <div id="myDiv"></div>
+</body>
+
+</html>
