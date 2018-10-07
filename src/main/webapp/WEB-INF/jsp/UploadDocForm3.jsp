@@ -84,7 +84,7 @@
         </p>
         <p>
             <label for="litigant">当事人</label>
-            <form:input id="litigant" path="litigant" style="width:140px;height:25px"/>
+            <form:input id="litigant" path="litigant" style="width:255px;height:25px"/>
         </p>
         <p>
             <label for="attorney">委托诉讼代理人</label>
