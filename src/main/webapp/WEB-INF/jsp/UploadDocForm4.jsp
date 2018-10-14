@@ -35,7 +35,7 @@
 	            $("#caseNo").val(data.caseNo);
 	            $("#court").val(data.court);
 	            $("#category").val(data.category);
-	            
+	            $("#litigant").val(data.litigant);
 			},
 			error : function() {
 				alert("调用ajax向服务端发送请求出错啦！");

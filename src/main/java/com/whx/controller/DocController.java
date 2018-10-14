@@ -19,7 +19,6 @@ public class DocController {
 		model.addAttribute("doc", new Doc());
 		
 		
-		
-		return "UploadDocForm3";
+		return "UploadDocForm4";
 	}
 }
