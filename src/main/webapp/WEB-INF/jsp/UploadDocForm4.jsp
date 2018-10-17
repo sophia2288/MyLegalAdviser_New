@@ -29,13 +29,13 @@
 			processData : false,
 			contentType : false,
 			success : function(data) {
-				//$("#myDiv").html(data.caseNo);
-				
 	            $("#source").val(data.source);
 	            $("#caseNo").val(data.caseNo);
 	            $("#court").val(data.court);
 	            $("#category").val(data.category);
 	            $("#litigant").val(data.litigant);
+	            $("#brief").val(data.brief);
+	            $("#title").val(data.title);
 			},
 			error : function() {
 				alert("调用ajax向服务端发送请求出错啦！");
