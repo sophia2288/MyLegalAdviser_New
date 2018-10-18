@@ -16,12 +16,13 @@
                 url: "ajaxTest",
                 data: formFile,
                 async: true,
-                //dataType: "json",
+                dataType: "json",
                 cache: false,
                 processData: false,
                 contentType: false,
-                success: function (result) {
-                    $("#myDiv").html(result);
+                success: function (data) {
+                	$("#myDiv").html(data.caseNo);
+                	$("#myDiv1").html(data.court);
                 },
                 error: function () {
                     alert("error!!!");
@@ -38,6 +39,7 @@
             onchange="sub()">
         <!-- <input type="button" value="上传"  onclick="sub()"> -->
         <div id="myDiv"></div>
+        <div id="myDiv1"></div>
     </form>
     
 </body>
