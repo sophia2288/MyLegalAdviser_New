@@ -31,12 +31,13 @@ public class Guidecase implements java.io.Serializable {
 	@Column(length = 9)
 	private String guideCaseNo;
 
-	@ManyToOne
-	@JoinColumn(name = "briefId", nullable = false)
-	private Brief brief;
+	//@ManyToOne
+	//@JoinColumn(name = "briefId", nullable = false)
+	@Column(name = "brief", nullable = false, unique = false, length = 40)
+	private String brief;
 
 	@ManyToOne
-	@JoinColumn(name = "classId")
+	@JoinColumn(name = "classId", nullable = true, unique = false)
 	private Caseclass caseclass;
 
 	@ManyToOne
@@ -62,7 +63,7 @@ public class Guidecase implements java.io.Serializable {
 	private String abbrevation;
 
 	@Column(name = "fullPathName", nullable = false, unique = false, length = 255)
-	private String fullPathName;
+	private String fullPathName = "E:\\myLaw\\guidecases\\";
 
 	@ManyToMany(targetEntity = Article.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "guidecase_article", joinColumns = @JoinColumn(name = "guideCaseNo"), inverseJoinColumns = @JoinColumn(name = "articleId"))
@@ -71,7 +72,7 @@ public class Guidecase implements java.io.Serializable {
 	public Guidecase() {
 	}
 
-	public Guidecase(String guideCaseNo, Brief brief, String title, String source, Date pubDate, String category,
+	public Guidecase(String guideCaseNo, String brief, String title, String source, Date pubDate, String category,
 			String abbrevation, String fullPathName) {
 		this.guideCaseNo = guideCaseNo;
 		this.brief = brief;
@@ -83,7 +84,7 @@ public class Guidecase implements java.io.Serializable {
 		this.fullPathName = fullPathName;
 	}
 
-	public Guidecase(String guideCaseNo, Brief brief, Caseclass caseclass, Doc doc, String title, String source,
+	public Guidecase(String guideCaseNo, String brief, Caseclass caseclass, Doc doc, String title, String source,
 			Date pubDate, String category, String keywords, String abbrevation, String fullPathName,
 			Set<Article> articles) {
 		this.guideCaseNo = guideCaseNo;
@@ -108,11 +109,11 @@ public class Guidecase implements java.io.Serializable {
 		this.guideCaseNo = guideCaseNo;
 	}
 
-	public Brief getBrief() {
+	public String getBrief() {
 		return this.brief;
 	}
 
-	public void setBrief(Brief brief) {
+	public void setBrief(String brief) {
 		this.brief = brief;
 	}
 

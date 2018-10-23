@@ -68,7 +68,7 @@
         </p>
         <p>
             <label for="brief">案由<span class="star">*</span></label>
-            <form:input id="brief" path="brief.briefId" placeholder="已启用输入提示功能" style="width:140px;height:25px"/>
+            <form:input id="brief" path="brief" placeholder="已启用输入提示功能" style="width:140px;height:25px"/>
         </p>
         <p>
             <label for="category">案件类型<span class="star">*</span></label>

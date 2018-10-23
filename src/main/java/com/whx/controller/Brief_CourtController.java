@@ -1,9 +1,9 @@
 package com.whx.controller;
 
-import java.io.BufferedReader;
+//import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+//import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,16 +20,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.whx.entities.Brief;
+//import com.whx.entities.Brief;
 import com.whx.entities.Court;
-import com.whx.service.BriefService;
+//import com.whx.service.BriefService;
 import com.whx.service.CourtService;
 
 @Controller
 public class Brief_CourtController {
 
-	@Autowired
-	private BriefService briefService;
+	//@Autowired
+	//private BriefService briefService;
 
 	@Autowired
 	private CourtService courtService;
@@ -45,10 +45,11 @@ public class Brief_CourtController {
 	}
 
 	// 上传的文件会被自动绑定到MultipartFile中
-	@RequestMapping(value = "/uploadBrief", method = RequestMethod.POST)
+	//@RequestMapping(value = "/uploadBrief", method = RequestMethod.POST)
 	// public String upload(HttpServletRequest request, @RequestParam("description")
 	// String description,@RequestParam("file") MultipartFile file) throws Exception
 	// {
+	/*
 	public String uploadBrief(@RequestParam("file") MultipartFile uploadFile) throws Exception {
 		if (uploadFile.getSize() > 0) {
 			String fileName = uploadFile.getOriginalFilename();
@@ -76,6 +77,7 @@ public class Brief_CourtController {
 		}
 		return "error";
 	}
+	*/
 
 	// 上传的文件会被自动绑定到MultipartFile中
 	@RequestMapping(value = "/uploadCourt", method = RequestMethod.POST)

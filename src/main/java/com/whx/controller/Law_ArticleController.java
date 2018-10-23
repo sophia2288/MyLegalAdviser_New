@@ -54,8 +54,9 @@ public class Law_ArticleController {
 	@RequestMapping(value = "/saveLaw")
 	public String saveLaw(@ModelAttribute Law law, @RequestParam("file") MultipartFile uploadFile, Model model)
 			throws IOException {
-		if("".equals(law.getBrief().getBriefId())||law.getBrief().getBriefId().isEmpty()) {
-			law.setBrief(null);
+		if("".equals(law.getBrief()/*.getBriefId()*/)||law.getBrief()/*.getBriefId()*/.isEmpty()) {
+			//law.setBrief(null);
+			law.setBrief("");
 		}
 		lawService.addLaw(law);
 		writeArticles(law,uploadFile);

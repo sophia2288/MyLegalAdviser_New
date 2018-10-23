@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,9 +33,10 @@ public class Caseclass implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer classId;
 	
-	@ManyToOne
-	@JoinColumn(name = "briefId")
-	private Brief brief;
+	//@ManyToOne
+	//@JoinColumn(name = "briefId")
+	@Column(name = "brief", nullable = false, unique = false, length = 40)
+	private String brief;
 	
 	@Column(name = "description", nullable = false, unique = false, length=2048)
 	private String description;
@@ -60,13 +60,13 @@ public class Caseclass implements java.io.Serializable {
 	public Caseclass() {
 	}
 
-	public Caseclass(Brief brief, String description, String keywords) {
+	public Caseclass(String brief, String description, String keywords) {
 		this.brief = brief;
 		this.description = description;
 		this.keywords = keywords;
 	}
 
-	public Caseclass(Brief brief, String description, String features, String keywords, Set<Guidecase> guidecases, Set<Article> articles,
+	public Caseclass(String brief, String description, String features, String keywords, Set<Guidecase> guidecases, Set<Article> articles,
 			Set<Doc> docs) {
 		this.brief = brief;
 		this.description = description;
@@ -85,11 +85,11 @@ public class Caseclass implements java.io.Serializable {
 		this.classId = classId;
 	}
 
-	public Brief getBrief() {
+	public String getBrief() {
 		return this.brief;
 	}
 
-	public void setBrief(Brief brief) {
+	public void setBrief(String brief) {
 		this.brief = brief;
 	}
 

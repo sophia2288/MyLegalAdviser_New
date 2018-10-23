@@ -12,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,9 +31,10 @@ public class Law implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer lawId;
 
-	@ManyToOne
-	@JoinColumn(name = "briefId")
-	private Brief brief;
+	//@ManyToOne
+	//@JoinColumn(name = "briefId")
+	@Column(name = "brief", nullable = true, unique = false, length = 40)
+	private String brief;
 
 	@Column(name = "fullName", nullable = false, unique = true, length = 255)
 	private String fullName;
@@ -68,12 +67,10 @@ public class Law implements java.io.Serializable {
 	private String aliases;
 
 	@Column(name = "fullPathName", nullable = true, unique = false, length = 255)
-	private String fullPathName;
+	private String fullPathName = "E:\\myLaw\\laws\\";
 
 	@OneToMany(targetEntity = Article.class, mappedBy = "law", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<Article> articles = new HashSet<Article>(0);
-
-	// private Set<Article> articles1 = new HashSet<Article>(0);
 
 	public Law() {
 	}
@@ -89,7 +86,7 @@ public class Law implements java.io.Serializable {
 		this.classification1 = classification1;
 	}
 
-	public Law(Brief brief, String fullName, String organ, String referenceNo, Date publishDate, Date effectiveDate,
+	public Law(String brief, String fullName, String organ, String referenceNo, Date publishDate, Date effectiveDate,
 			String prescription, String hierarchy, String classification, String classification1, String aliases,
 			String fullPathName, Set<Article> articles) {
 		this.brief = brief;
@@ -115,11 +112,11 @@ public class Law implements java.io.Serializable {
 		this.lawId = lawId;
 	}
 
-	public Brief getBrief() {
+	public String getBrief() {
 		return this.brief;
 	}
 
-	public void setBrief(Brief brief) {
+	public void setBrief(String brief) {
 		this.brief = brief;
 	}
 

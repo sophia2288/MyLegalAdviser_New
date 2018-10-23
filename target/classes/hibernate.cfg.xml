@@ -13,7 +13,6 @@
         <mapping class="com.whx.entities.User" />
         <mapping class="com.whx.entities.Law" />
         <mapping class="com.whx.entities.Article" />
-        <mapping class="com.whx.entities.Brief" />
         <mapping class="com.whx.entities.Caseclass" />
         <mapping class="com.whx.entities.Doc" />
         <mapping class="com.whx.entities.Guidecase" />

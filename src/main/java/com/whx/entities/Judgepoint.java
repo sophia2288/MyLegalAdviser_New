@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -33,13 +32,14 @@ public class Judgepoint implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer judgePointId;
 	
-	@ManyToOne
-	@JoinColumn(name = "briefId",nullable=false)
-	private Brief brief;
+	//@ManyToOne
+	//@JoinColumn(name = "briefId",nullable=false)
+	@Column(name = "brief", nullable = false, unique = false, length = 40)
+	private String brief;
 	
-	@ManyToOne
-	@JoinColumn(name = "docId")
-	private Doc doc;
+	//@ManyToOne
+	//@JoinColumn(name = "docId")
+	//private Doc doc;
 	
 	@Column(name = "title", nullable = false, unique = false, length=256)
 	private String title;
@@ -63,7 +63,7 @@ public class Judgepoint implements java.io.Serializable {
 	private String keywords;
 	
 	@Column(name = "fullPathName", nullable = false, unique = false, length=255)
-	private String fullPathName;
+	private String fullPathName = "E:\\myLaw\\judgepoints\\";
 	
 	@ManyToMany(targetEntity = Article.class, fetch = FetchType.LAZY,cascade=CascadeType.ALL)    
     @JoinTable(name = "judgepoint_article", joinColumns = @JoinColumn(name = "judgePointId"), inverseJoinColumns = @JoinColumn(name = "articleId"))
@@ -72,7 +72,7 @@ public class Judgepoint implements java.io.Serializable {
 	public Judgepoint() {
 	}
 
-	public Judgepoint(Brief brief, String title, String source, String category, String fullPathName) {
+	public Judgepoint(String brief, String title, String source, String category, String fullPathName) {
 		this.brief = brief;
 		this.title = title;
 		this.source = source;
@@ -80,10 +80,10 @@ public class Judgepoint implements java.io.Serializable {
 		this.fullPathName = fullPathName;
 	}
 
-	public Judgepoint(Brief brief, Doc doc, String title, String subtitle, String source, Date pubDate, String category,
+	public Judgepoint(String brief, /*Doc doc,*/ String title, String subtitle, String source, Date pubDate, String category,
 			String author, String keywords, String fullPathName, Set<Article> articles) {
 		this.brief = brief;
-		this.doc = doc;
+		//this.doc = doc;
 		this.title = title;
 		this.subtitle = subtitle;
 		this.source = source;
@@ -103,14 +103,15 @@ public class Judgepoint implements java.io.Serializable {
 		this.judgePointId = judgePointId;
 	}
 
-	public Brief getBrief() {
+	public String getBrief() {
 		return this.brief;
 	}
 
-	public void setBrief(Brief brief) {
+	public void setBrief(String brief) {
 		this.brief = brief;
 	}
 
+	/*
 	public Doc getDoc() {
 		return this.doc;
 	}
@@ -118,6 +119,7 @@ public class Judgepoint implements java.io.Serializable {
 	public void setDoc(Doc doc) {
 		this.doc = doc;
 	}
+	*/
 
 	public String getTitle() {
 		return this.title;

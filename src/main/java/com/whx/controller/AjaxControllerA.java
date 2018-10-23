@@ -117,7 +117,7 @@ public class AjaxControllerA {
 				map.put("litigant", dangShiRen.substring(0, dangShiRen.length() - 1));
 
 				strOfBrief = strOfBrief
-						.replaceAll("[\\(\\[（]((以下)?简称|下称)(([\\u4e00-\\u9fa5][0-9a-zA-ZＸ]*){1,30})[\\)\\]）]", "");
+						.replaceAll("[\\(\\[（]((以下)?简称|下称)(([\\u4e00-\\u9fa5]?[0-9a-zA-ZＸ\"“”]*){1,30})[\\)\\]）]", "");
 				int indexOfBriefBegin = strOfBrief.lastIndexOf("@");
 				int indexOfBriefEnd = strOfBrief.lastIndexOf("一案");
 				strOfBrief = strOfBrief.substring(indexOfBriefBegin + 1, indexOfBriefEnd);
