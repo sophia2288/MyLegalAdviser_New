@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -37,9 +38,9 @@ public class Judgepoint implements java.io.Serializable {
 	@Column(name = "brief", nullable = false, unique = false, length = 40)
 	private String brief;
 	
-	//@ManyToOne
-	//@JoinColumn(name = "docId")
-	//private Doc doc;
+	@ManyToOne
+	@JoinColumn(name = "docId")
+	private Doc doc;
 	
 	@Column(name = "title", nullable = false, unique = false, length=256)
 	private String title;
@@ -80,10 +81,10 @@ public class Judgepoint implements java.io.Serializable {
 		this.fullPathName = fullPathName;
 	}
 
-	public Judgepoint(String brief, /*Doc doc,*/ String title, String subtitle, String source, Date pubDate, String category,
+	public Judgepoint(String brief, Doc doc, String title, String subtitle, String source, Date pubDate, String category,
 			String author, String keywords, String fullPathName, Set<Article> articles) {
 		this.brief = brief;
-		//this.doc = doc;
+		this.doc = doc;
 		this.title = title;
 		this.subtitle = subtitle;
 		this.source = source;
@@ -110,8 +111,7 @@ public class Judgepoint implements java.io.Serializable {
 	public void setBrief(String brief) {
 		this.brief = brief;
 	}
-
-	/*
+	
 	public Doc getDoc() {
 		return this.doc;
 	}
@@ -119,7 +119,6 @@ public class Judgepoint implements java.io.Serializable {
 	public void setDoc(Doc doc) {
 		this.doc = doc;
 	}
-	*/
 
 	public String getTitle() {
 		return this.title;

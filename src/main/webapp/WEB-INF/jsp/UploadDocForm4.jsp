@@ -11,10 +11,9 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/datepicker/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/CaseBrief.js"></script>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/CaseBrief3.js"></script>
 <script type="text/javascript">
-	function doc_Preview() {
+	function doc_AutoComplete() {
 		var fileObj = document.getElementById("uploadFile").files[0];
 		var formFile = new FormData();
 		formFile.append("wordfile", fileObj);
@@ -52,7 +51,7 @@
         <legend>裁判文书录入</legend>
         <p>
             <label for="uploadFile">请选择裁判文书<span class="star">*</span></label>
-            <input type="file" id="uploadFile" name="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="doc_Preview()" style="width:210px;height:25px">
+            <input type="file" id="uploadFile" name="file" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="doc_AutoComplete()" style="width:210px;height:25px">
         </p>
         <p>
             <label for="title">案件名称<span class="star">*</span></label>
@@ -73,8 +72,7 @@
         <p>
             <label for="category">案件类型<span class="star">*</span></label>
             <form:select id="category" path="category" style="width:80px;height:28px">
-                <form:option value="民事" style="width:80px">民事</form:option>
-                <form:option value="商事" selected="selected" style="width:80px">商事</form:option>
+                <form:option value="民商事" selected="selected" style="width:80px">民商事</form:option>
                 <form:option value="刑事" style="width:80px">刑事</form:option>
                 <form:option value="行政" style="width:80px">行政</form:option>
                 <form:option value="执行" style="width:80px">执行</form:option>

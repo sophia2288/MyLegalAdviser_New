@@ -96,8 +96,8 @@ public class Doc implements java.io.Serializable {
 	@OneToMany(targetEntity = Doc.class, mappedBy = "doc", cascade = CascadeType.ALL)
 	private Set<Doc> docs = new HashSet<Doc>(0);
 
-	//@OneToMany(targetEntity = Judgepoint.class, mappedBy = "doc", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-	//private Set<Judgepoint> judgepoints = new HashSet<Judgepoint>(0);
+	@OneToMany(targetEntity = Judgepoint.class, mappedBy = "doc", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	private Set<Judgepoint> judgepoints = new HashSet<Judgepoint>(0);
 
 	@OneToMany(targetEntity = Guidecase.class, mappedBy = "doc", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Set<Guidecase> guidecases = new HashSet<Guidecase>(0);
@@ -126,7 +126,7 @@ public class Doc implements java.io.Serializable {
 	public Doc(String brief, Caseclass caseclass, Court court, Doc doc, String title, String source, String caseNo,
 			String category, String docCategory, String proceeding, String judge, Date judgeDate, String litigant,
 			String attorney, String keywords, String abbrevation, Boolean isImportant, String fullPathName, Set<Doc> docs,
-			/*Set<Judgepoint> judgepoints,*/ Set<Article> articles, Set<Guidecase> guidecases) {
+			Set<Judgepoint> judgepoints, Set<Article> articles, Set<Guidecase> guidecases) {
 		this.brief = brief;
 		this.caseclass = caseclass;
 		this.court = court;
@@ -146,7 +146,7 @@ public class Doc implements java.io.Serializable {
 		this.isImportant = isImportant;
 		this.fullPathName = fullPathName;
 		this.docs = docs;
-		//this.judgepoints = judgepoints;
+		this.judgepoints = judgepoints;
 		this.articles = articles;
 		this.guidecases = guidecases;
 	}
@@ -311,7 +311,6 @@ public class Doc implements java.io.Serializable {
 		this.docs = docs;
 	}
 
-	/*
 	public Set<Judgepoint> getJudgepoints() {
 		return this.judgepoints;
 	}
@@ -319,7 +318,6 @@ public class Doc implements java.io.Serializable {
 	public void setJudgepoints(Set<Judgepoint> judgepoints) {
 		this.judgepoints = judgepoints;
 	}
-	*/
 
 	public Set<Article> getArticles() {
 		return this.articles;

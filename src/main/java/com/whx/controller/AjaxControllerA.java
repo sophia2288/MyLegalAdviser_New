@@ -55,8 +55,8 @@ public class AjaxControllerA {
 			// String UTFSpace = new String(bytes, "utf-8");
 			// noSpaceStr = wordText.replaceAll(UTFSpace, "&nbsp;");
 
-			noSpaceStr = wordText.replaceAll(" ", "");// 去掉文本中的空格
-			noSpaceStr = noSpaceStr.replaceAll("　", "");// 去掉文本中的空格
+			noSpaceStr = wordText.replaceAll(" ", "");// 去掉文本中的空格（一般空格，按下Space键产生）
+			noSpaceStr = noSpaceStr.replaceAll("　", "");// 去掉文本中的空格（特殊空格，较一般空格宽）
 
 			// noSpaceStr = noSpaceStr.replaceAll("【", "（");// 替换
 			// noSpaceStr = noSpaceStr.replaceAll("】", "）");// 替换
@@ -81,7 +81,10 @@ public class AjaxControllerA {
 				map.put("court", matcher.group(1)); // 提取法院名称
 				map.put("proceeding", "一审"); // 提取诉讼程序
 				map.put("caseNo", matcher.group(6)); // 提取案号
-				map.put("category", matcher.group(4).replaceAll("\\s*", ""));// 提取案件类型
+				if("民事".equals(matcher.group(4).replaceAll("\\s*", ""))) {
+					map.put("category", "民商事");// 提取案件类型
+				}
+				//map.put("category", matcher.group(4).replaceAll("\\s*", ""));// 提取案件类型
 				map.put("docCategory", matcher.group(5).replaceAll("\\s*", ""));// 提取文书类型
 
 				// 以下代码用于提取一审案件当事人
@@ -142,7 +145,9 @@ public class AjaxControllerA {
 				map.put("court", matcher.group(1));// 提取法院名称
 				map.put("proceeding", "再审");// 提取诉讼程序
 				map.put("caseNo", matcher.group(6));// 提取案号
-				map.put("category", matcher.group(4).replaceAll("\\s*", ""));// 提取案件类型
+				if("民事".equals(matcher.group(4).replaceAll("\\s*", ""))) {
+					map.put("category", "民商事");// 提取案件类型
+				}
 				map.put("docCategory", matcher.group(5).replaceAll("\\s*", ""));// 提取文书类型
 			}
 

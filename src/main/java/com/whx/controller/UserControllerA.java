@@ -52,12 +52,13 @@ public class UserControllerA {
 		List<String> categories = userService.getAllUserCategories();
 		model.addAttribute("categories", categories);
 		model.addAttribute("user", new User());
-		return "CreateUserForm";
+		//return "CreateUserForm";//本行勿删
+		return "CreateUserForm_bootstrap3";
 	}
 	
 	@RequestMapping(value = "/saveUser")
 	public String saveUser(@ModelAttribute User user,Model model) {
-		user.setContributions((short)0);
+		//user.setContributions((short)0);
 		userService.addUser(user);
 		model.addAttribute("userN", user);
 		return "UserDetails";

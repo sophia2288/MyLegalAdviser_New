@@ -36,10 +36,10 @@ public class User implements java.io.Serializable {
 	private String email;// 电子信箱
 
 	@Column(name = "concerns", nullable = true, unique = false, length = 1024)
-	private String concerns;// 用户关注点
+	private String concerns = "继承纠纷、民间借贷纠纷、不动产类纠纷、合同纠纷、侵权类纠纷";// 用户关注点,有默认值
 
 	@Column(name = "contributions", nullable = true, unique = false)
-	private Short contributions;// 用户贡献的资料数量
+	private Short contributions = 0;// 用户贡献的资料数量默认为0
 
 	public User() {
 	}
