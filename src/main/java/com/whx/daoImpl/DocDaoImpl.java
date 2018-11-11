@@ -28,7 +28,7 @@ public class DocDaoImpl implements DocDao{
 		hibernateTemplate.delete(doc);
 	}
 
-	public void delete(int docId) {
+	public void delete(Integer docId) {
 		hibernateTemplate.bulkUpdate("delete Doc d where d.docId = ?", new Object[] { docId });
 	}
 
@@ -40,7 +40,7 @@ public class DocDaoImpl implements DocDao{
 		hibernateTemplate.update(doc);
 	}
 
-	public void update(int docId) {
+	public void update(Integer docId) {
 		hibernateTemplate.bulkUpdate("update Doc d where d.docId = ?", new Object[] { docId });
 	}
 
@@ -48,7 +48,7 @@ public class DocDaoImpl implements DocDao{
 		hibernateTemplate.bulkUpdate("update Doc d where d.caseNo = ?", new Object[] { caseNo });
 	}
 
-	public Doc findById(int docId) {
+	public Doc findById(Integer docId) {
 		return (Doc) hibernateTemplate.get(Doc.class, docId);
 	}
 
@@ -62,7 +62,7 @@ public class DocDaoImpl implements DocDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	public boolean exists(int docId) {
+	public boolean exists(Integer docId) {
 		List<Doc> docList = new ArrayList<Doc>();
 		String hql = "from Doc d where d.docId = :docId";
 		docList = (List<Doc>) hibernateTemplate.findByNamedParam(hql, "docId", docId);

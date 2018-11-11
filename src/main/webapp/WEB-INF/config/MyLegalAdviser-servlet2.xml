@@ -28,19 +28,24 @@
 	<mvc:resources mapping="/jquery/**" location="/jquery/" />
 	<mvc:resources mapping="/popper/**" location="/popper/" />
 	<mvc:resources mapping="/js/**" location="/js/" />
-	<mvc:resources mapping="/json/**" location="/json/" />
 	<mvc:resources mapping="/images/**" location="/images/" />
 	
 	<mvc:annotation-driven conversion-service="conversionService" />
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
+        <property name="registerDefaultFormatters" value="true" />
+        <property name="formatterRegistrars">
             <set>
-                <bean class="com.whx.converter.MyDateConverter"></bean>
-                <bean class="com.whx.converter.CourtCodeToCourtConverter"></bean>
+                <bean class="org.springframework.format.datetime.DateFormatterRegistrar">
+                    <property name="formatter" ref="dateFormatter"></property>
+                </bean>
             </set>
         </property>
     </bean>
-    
+
+    <bean id="dateFormatter" class="org.springframework.format.datetime.DateFormatter">
+        <property name="pattern" value="yyyy-mm-dd"></property>
+    </bean>
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>

@@ -25,10 +25,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "doc")
 public class Doc implements java.io.Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +35,11 @@ public class Doc implements java.io.Serializable {
 	@Column(name = "brief", nullable = false, unique = false, length = 40)
 	private String brief;
 
-	@ManyToOne
+	@ManyToOne(cascade = (CascadeType.ALL))
 	@JoinColumn(name = "classId", nullable = true, unique = false)
 	private Caseclass caseclass;
 
-	@ManyToOne
+	@ManyToOne(cascade = (CascadeType.ALL))
 	@JoinColumn(name = "courtCode", nullable = false, unique = false)
 	private Court court;
 

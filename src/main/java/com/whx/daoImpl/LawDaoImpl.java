@@ -36,7 +36,7 @@ public class LawDaoImpl implements LawDao{
 		hibernateTemplate.delete(law);
 	}
 	
-	public void delete(int lawId) {
+	public void delete(Integer lawId) {
 		hibernateTemplate.bulkUpdate("delete Law l where l.lawId = ?", new Object[]{lawId});
 	}
 
@@ -70,7 +70,7 @@ public class LawDaoImpl implements LawDao{
 		hibernateTemplate.update(law);
 	}
 
-	public Law findById(int lawId) {
+	public Law findById(Integer lawId) {
 		return (Law) hibernateTemplate.get(Law.class, lawId);
 	}
 
@@ -90,7 +90,7 @@ public class LawDaoImpl implements LawDao{
 	*/
 
 	@SuppressWarnings("unchecked")
-	public boolean exists(int lawId) {
+	public boolean exists(Integer lawId) {
 		List<Law> lawList = new ArrayList<Law>();
 		String hql = "from Law l where l.lawId = :lawId";
 		lawList = (List<Law>) hibernateTemplate.findByNamedParam(hql, "lawId", lawId);

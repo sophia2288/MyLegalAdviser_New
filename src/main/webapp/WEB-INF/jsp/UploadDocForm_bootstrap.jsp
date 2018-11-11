@@ -65,7 +65,7 @@
                     <div class="col-md-8">
                     	<div class="row">
                     		<div class="col-sm-12">
-                    			<h3 class="page-header text-left lead">裁判文书录入</h3>
+                    			<h3 class="page-header text-right lead">裁判文书录入</h3>
                     		</div>
                     	</div>
                         <form:form commandName="doc" action="saveDoc" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -121,7 +121,6 @@
                                     <div class="checkbox">
                                         <label>
                                         	<form:checkbox id="isImportant" path="isImportant"/>重要裁判文书
-                                            
                                         </label>
                                     </div>
                                 </div>
@@ -204,14 +203,14 @@
                                 	<form:textarea class="form-control" id="abbrevation" path="abbrevation" rows="5" />
                                 </div>
                             </div>
-                            <!--
+                            
                             <div class="form-group required">
                                 <label for="fullPathName" class="col-sm-3 control-label">保存路径</label>
                                 <div class="col-sm-9">
                                 	<form:input class="form-control" id="fullPathName" path="fullPathName" readonly="true"/>
                                 </div>
                             </div>
-                            -->
+                            
 							<div class="form-group">
 								<div class="col-sm-offset-5 col-sm-3">
                                     <button type="reset" class="btn btn-default">重新填写</button>
@@ -251,7 +250,7 @@
 			clearBtn : true,//清除按钮
 			todayBtn : "linked",//今日按钮
 			todayHighlight : true,
-			format : "yyyy年m月d日"//日期格式，详见 http://bootstrap-datepicker.readthedocs.org/en/release/options.html#format
+			format : "yyyy-MM-dd"//日期格式，详见 http://bootstrap-datepicker.readthedocs.org/en/release/options.html#format
 		});
 	</script>
 </body>

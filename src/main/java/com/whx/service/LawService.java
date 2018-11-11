@@ -8,15 +8,15 @@ public interface LawService {
 
 	public void deleteLaw(Law law);
 
-	public void deleteLaw(int lawId);
+	public void deleteLaw(Integer lawId);
 
 	public void updateLaw(Law law);
 	
-	public Law getLaw(int lawId);
+	public Law getLaw(Integer lawId);
 	
 	public Law getLawByFullName(String fullName);
 	
-	public boolean exists(int lawId);
+	public boolean exists(Integer lawId);
 
 	public boolean exists(String fullName);
 	

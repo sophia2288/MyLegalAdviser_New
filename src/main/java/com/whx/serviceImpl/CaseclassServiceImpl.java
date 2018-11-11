@@ -27,7 +27,7 @@ public class CaseclassServiceImpl implements CaseclassService{
 			caseclassDao.delete(caseclass);
 	}
 
-	public void deleteCaseclass(int classId) {
+	public void deleteCaseclass(Integer classId) {
 		if(exists(classId))
 			caseclassDao.delete(classId);
 	}
@@ -37,11 +37,11 @@ public class CaseclassServiceImpl implements CaseclassService{
 			caseclassDao.update(caseclass);
 	}
 
-	public Caseclass getCaseclassById(int classId) {
+	public Caseclass getCaseclassById(Integer classId) {
 		return caseclassDao.findById(classId);
 	}
 
-	public boolean exists(int classId) {
+	public boolean exists(Integer classId) {
 		return caseclassDao.exists(classId);
 	}
 

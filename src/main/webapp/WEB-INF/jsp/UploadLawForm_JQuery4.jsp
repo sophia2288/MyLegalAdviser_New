@@ -77,7 +77,7 @@
         </p>
         <p>
             <label for="brief">案由编码：</label>
-            <input type="text" id="brief" name="brief.briefId" placeholder="已启用输入提示功能" style="width:140px;height:25px"/>
+            <input type="text" id="brief" name="brief" placeholder="已启用输入提示功能" style="width:140px;height:25px"/>
         </p>
         <p>
             <label for="aliases">法律简称：</label>

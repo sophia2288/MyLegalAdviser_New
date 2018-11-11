@@ -29,7 +29,7 @@ public class DocServiceImpl implements DocService{
 			docDao.delete(doc);
 	}
 
-	public void deleteDoc(int docId) {
+	public void deleteDoc(Integer docId) {
 		if(exists(docId))
 			docDao.delete(docId);
 	}
@@ -44,7 +44,7 @@ public class DocServiceImpl implements DocService{
 			docDao.update(doc);
 	}
 
-	public void updateDoc(int docId) {
+	public void updateDoc(Integer docId) {
 		if(exists(docId))
 			docDao.update(docId);
 	}
@@ -54,7 +54,7 @@ public class DocServiceImpl implements DocService{
 			docDao.update(caseNo);
 	}
 
-	public Doc getDocById(int docId) {
+	public Doc getDocById(Integer docId) {
 		return docDao.findById(docId);
 	}
 
@@ -62,7 +62,7 @@ public class DocServiceImpl implements DocService{
 		return docDao.findByCaseNo(caseNo);
 	}
 
-	public boolean exists(int docId) {
+	public boolean exists(Integer docId) {
 		return docDao.exists(docId);
 	}
 

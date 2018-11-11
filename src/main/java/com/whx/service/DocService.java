@@ -10,21 +10,21 @@ public interface DocService {
 
 	public void deleteDoc(Doc doc);
 	
-	public void deleteDoc(int docId);
+	public void deleteDoc(Integer docId);
 
 	public void deleteDoc(String caseNo);
 
 	public void updateDoc(Doc doc);
 	
-	public void updateDoc(int docId);
+	public void updateDoc(Integer docId);
 	
 	public void updateDoc(String caseNo);
 
-	public Doc getDocById(int docId);
+	public Doc getDocById(Integer docId);
 
 	public List<Doc> getDocsByCaseNo(String caseNo);
 
-	public boolean exists(int docId);
+	public boolean exists(Integer docId);
 
 	public boolean exists(String caseNo);
 

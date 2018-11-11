@@ -32,7 +32,7 @@ public class LawServiceImpl implements LawService {
 			lawDao.delete(law);
 	}
 
-	public void deleteLaw(int lawId) {
+	public void deleteLaw(Integer lawId) {
 		if(exists(lawId))
 			lawDao.delete(lawId);
 	}
@@ -42,7 +42,7 @@ public class LawServiceImpl implements LawService {
 			lawDao.update(law);
 	}
 
-	public Law getLaw(int lawId) {
+	public Law getLaw(Integer lawId) {
 		return lawDao.findById(lawId);
 	}
 	
@@ -52,7 +52,7 @@ public class LawServiceImpl implements LawService {
 	}
 
 	@Override
-	public boolean exists(int lawId) {
+	public boolean exists(Integer lawId) {
 		return lawDao.exists(lawId);
 	}
 

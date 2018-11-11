@@ -20,6 +20,8 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
+	
+	
 	<!-- 配置SpringMVC,DispatherServlet处理前端所有请求 -->
 	<servlet>
 		<servlet-name>MyLegalAdviser</servlet-name>

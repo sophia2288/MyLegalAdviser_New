@@ -8,12 +8,12 @@ public interface CaseclassDao {
 
 	public void delete(Caseclass caseclass);
 
-	public void delete(int classId);
+	public void delete(Integer classId);
 
 	public void update(Caseclass caseclass);
 
-	public Caseclass findById(int classId);
+	public Caseclass findById(Integer classId);
 	
-	public boolean exists(int classId);
+	public boolean exists(Integer classId);
 	
 }

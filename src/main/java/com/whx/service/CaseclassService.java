@@ -8,12 +8,11 @@ public interface CaseclassService {
 
 	public void deleteCaseclass(Caseclass caseclass);
 
-	public void deleteCaseclass(int classId);
+	public void deleteCaseclass(Integer classId);
 
 	public void updateCaseclass(Caseclass caseclass);
 
-	public Caseclass getCaseclassById(int classId);
+	public Caseclass getCaseclassById(Integer classId);
 	
-	public boolean exists(int classId);
-
+	public boolean exists(Integer classId);
 }

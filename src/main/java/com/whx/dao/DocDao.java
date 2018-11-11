@@ -10,21 +10,21 @@ public interface DocDao {
 
 	public void delete(Doc doc);
 	
-	public void delete(int docId);
+	public void delete(Integer docId);
 
 	public void delete(String caseNo);
 
 	public void update(Doc doc);
 	
-	public void update(int docId);
+	public void update(Integer docId);
 	
 	public void update(String caseNo);
 
-	public Doc findById(int docId);
+	public Doc findById(Integer docId);
 
 	public List<Doc> findByCaseNo(String caseNo);
 
-	public boolean exists(int docId);
+	public boolean exists(Integer docId);
 
 	public boolean exists(String caseNo);
 

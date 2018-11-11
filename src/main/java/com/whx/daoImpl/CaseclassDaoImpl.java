@@ -28,7 +28,7 @@ public class CaseclassDaoImpl implements CaseclassDao{
 		hibernateTemplate.delete(caseclass);
 	}
 
-	public void delete(int classId) {
+	public void delete(Integer classId) {
 		hibernateTemplate.bulkUpdate("delete Caseclass c where c.classId = ?", new Object[] { classId });
 	}
 
@@ -36,12 +36,12 @@ public class CaseclassDaoImpl implements CaseclassDao{
 		hibernateTemplate.update(caseclass);
 	}
 
-	public Caseclass findById(int classId) {
+	public Caseclass findById(Integer classId) {
 		return (Caseclass) hibernateTemplate.get(Caseclass.class, classId);
 	}
 
 	@SuppressWarnings("unchecked")
-	public boolean exists(int classId) {
+	public boolean exists(Integer classId) {
 		List<Caseclass> caseclassList = new ArrayList<Caseclass>();
 		String hql = "from Caseclass c where c.classId = :classId";
 		caseclassList = (List<Caseclass>) hibernateTemplate.findByNamedParam(hql, "classId", classId);
