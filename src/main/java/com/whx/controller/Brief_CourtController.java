@@ -115,6 +115,7 @@ public class Brief_CourtController {
 								Court court = new Court();
 								court.setCourtCode(courtCode.getText());
 								court.setName(courtName.getText());
+								court.setCourt(null);
 
 								courtService.addCourt(court);
 							}
@@ -142,7 +143,7 @@ public class Brief_CourtController {
 		}
 	}
 
-	// 本方法把基层人民法院写入数据库
+	// 把基层人民法院写入数据库
 	private void uploadLowerCourt(MultipartFile uploadFile) throws IOException {
 		if (uploadFile.getSize() > 0) {
 			String fileName = uploadFile.getOriginalFilename();

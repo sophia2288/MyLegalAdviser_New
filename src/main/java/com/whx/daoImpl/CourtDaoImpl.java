@@ -49,7 +49,11 @@ public class CourtDaoImpl implements CourtDao{
 		List<Court> courtList = new ArrayList<Court>();
 		String hql = "from Court c where c.name = :name";
 		courtList = (List<Court>) hibernateTemplate.findByNamedParam(hql, "name", name);
-		return courtList.get(0);
+		if (courtList.isEmpty()) {
+			return null;
+		}else {
+			return courtList.get(0);
+		}
 	}
 
 	@SuppressWarnings("unchecked")

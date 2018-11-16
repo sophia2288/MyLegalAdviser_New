@@ -49,11 +49,12 @@
                     $("#title").val(data.title);
                     $("#judge").val(data.judge);
                     $("#judgeDate").val(data.judgeDate);
+                    $("#judgeDate").datepicker("setDate", data.judgeDate);//设置日历控件的日期
                     $("input[name='proceeding']").val([data.proceeding]);
                     $("input[name='docCategory']").val([data.docCategory]);
                 },
                 error: function () {
-                    alert("调用ajax向服务端发送请求出错啦！");
+                    alert("调用ajax向服务端发送请求出错！");
                 }
             });
         }
@@ -183,7 +184,7 @@
                             <div class="input-group">
                                 <form:input class="form-control" id="judgeDate" path="judgeDate" aria-describedby="basic-addon2"
                                     required="required" />
-                                <span class="input-group-addon" id="basic-addon2"> <i class="glyphicon glyphicon-th"></i>
+                                <span class="input-group-addon" id="basic-addon2"> <i class="glyphicon glyphicon-calendar"></i>
                                 </span>
                             </div>
                         </div>

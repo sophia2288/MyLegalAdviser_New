@@ -21,39 +21,40 @@ import com.whx.service.DocService;
 public class DocController {
 	@Autowired
 	private DocService docService;
-	
+
 	@Autowired
 	private CaseclassService caseclassService;
-	
+
 	@Autowired
 	private CourtService courtService;
-	
-	
+
 	@RequestMapping(value = "/docInput")
 	public String docInput(Model model) {
 		model.addAttribute("doc", new Doc());
-		
-		
+
 		return "inputDoc3";
 	}
-	
+
 	@RequestMapping(value = "/saveDoc")
-	public String saveDoc(@ModelAttribute Doc doc/*, @RequestParam("file") MultipartFile uploadFile, Model model*/)
+	public String saveDoc(@ModelAttribute Doc doc/* , @RequestParam("file") MultipartFile uploadFile, Model model */)
 			throws IOException {
-		
-		if(doc.getCaseclass() == null || doc.getCaseclass().getClassId() == null) {
+
+		if (doc.getCaseclass() == null || doc.getCaseclass().getClassId() == null) {
 			doc.setCaseclass(null);
-		}else {
+		} else {
 			Integer caseclassId = doc.getCaseclass().getClassId();
 			Caseclass caseclass = caseclassService.getCaseclassById(caseclassId);
 			doc.setCaseclass(caseclass);
 		}
-		
+
 		Court court = courtService.getCourtByCourtName(doc.getCourt().getName());
-		doc.setCourt(court);
-		
-		docService.addDoc(doc);
-		
-		return "docDetails";
+		if (court == null) {
+			return "docError";
+		} else {
+			doc.setCourt(court);
+			docService.addDoc(doc);
+
+			return "docDetails";
+		}
 	}
 }

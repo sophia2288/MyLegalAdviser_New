@@ -129,7 +129,7 @@ public class AjaxControllerA {
 				mapOfDocInfo.put("title", title);
 				
 				// 以下代码提取裁判日期。一般情况下，文书中有很多日期，以下代码确保只提取文书的裁判日期。
-				String regexStrOfJudge_JudgeDate = "((((([代助]理)?审判[长员])([\\u4e00-\\u9fa5]{2,6}))\\n+)+)(((一九|二〇)[一二三四五六七八九〇]{2})年([一二三四五六七八九十]|十一|十二)月([一二三四五六七八九十]{1,3})日)\\n+(书记员([\\u4e00-\\u9fa5]{2,6}))";
+				String regexStrOfJudge_JudgeDate = "((((([代助]理)?审判[长员]|人民陪审员)([\\u4e00-\\u9fa5]{2,6}))\\n+)+)(((一九|二〇)[一二三四五六七八九〇]{2})年([一二三四五六七八九十]|十一|十二)月([一二三四五六七八九十]{1,3})日)\\n+(代?书记员([\\u4e00-\\u9fa5]{2,6}))";
 				matcher.usePattern(Pattern.compile(regexStrOfJudge_JudgeDate));
 				matcher.reset();// 将匹配范围重新设置为整个文本
 				if(matcher.find()) {
@@ -140,7 +140,7 @@ public class AjaxControllerA {
 					String judges = "";
 					int startPos = matcher.regionStart();
 					int endPos = matcher.regionEnd();
-					String regexStrOfJudge = "((([代助]理)?审判[长员])([\\u4e00-\\u9fa5]{2,6}))\\n+";
+					String regexStrOfJudge = "((([代助]理)?审判[长员]|人民陪审员)([\\u4e00-\\u9fa5]{2,6}))\\n+";
 					matcher.usePattern(Pattern.compile(regexStrOfJudge));
 					matcher.region(startPos, endPos);//
 					while(matcher.find()) {
