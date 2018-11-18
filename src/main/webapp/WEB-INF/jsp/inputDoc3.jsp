@@ -84,7 +84,7 @@
                         <label for="title" class="col-sm-3 control-label">案件名称</label>
                         <div class="col-sm-6">
                             <form:input class="form-control" id="title" path="title" placeholder="示例：张三与李四民间借贷纠纷"
-                                required="required" />
+                                required="required" onmouseover="this.title=this.value" />
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
@@ -174,7 +174,7 @@
                     <div class="form-group">
                         <label for="judge" class="col-sm-3 control-label">审判员</label>
                         <div class="col-sm-6">
-                            <form:input class="form-control" id="judge" path="judge" placeholder="审判员之间用逗号隔开" />
+                            <form:input class="form-control" id="judge" path="judge" placeholder="审判员之间用逗号隔开" onmouseover="this.title=this.value" />
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
@@ -193,7 +193,7 @@
                     <div class="form-group">
                         <label for="litigant" class="col-sm-3 control-label">当事人</label>
                         <div class="col-sm-6">
-                            <form:input class="form-control" id="litigant" path="litigant" />
+                            <form:input class="form-control" id="litigant" path="litigant" onmouseover="this.title=this.value" />
                         </div>
                         <div class="col-sm-3"></div>
                     </div>

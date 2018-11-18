@@ -25,3 +25,10 @@
 	background-color: #c6edb8;
 	box-shadow: 6px 6px 3px #787878;
 }
+
+input {
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

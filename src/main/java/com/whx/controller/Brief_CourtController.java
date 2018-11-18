@@ -28,8 +28,8 @@ import com.whx.service.CourtService;
 @Controller
 public class Brief_CourtController {
 
-	//@Autowired
-	//private BriefService briefService;
+	// @Autowired
+	// private BriefService briefService;
 
 	@Autowired
 	private CourtService courtService;
@@ -45,39 +45,27 @@ public class Brief_CourtController {
 	}
 
 	// 上传的文件会被自动绑定到MultipartFile中
-	//@RequestMapping(value = "/uploadBrief", method = RequestMethod.POST)
+	// @RequestMapping(value = "/uploadBrief", method = RequestMethod.POST)
 	// public String upload(HttpServletRequest request, @RequestParam("description")
 	// String description,@RequestParam("file") MultipartFile file) throws Exception
 	// {
 	/*
-	public String uploadBrief(@RequestParam("file") MultipartFile uploadFile) throws Exception {
-		if (uploadFile.getSize() > 0) {
-			String fileName = uploadFile.getOriginalFilename();
-			fileName = fileName.toLowerCase();
-			if (fileName.endsWith("txt")) {
-				BufferedReader in = null;
-				String regexStr = "^(第[一二三四五六七八九十]部分\\s?|([一二三四五六七八九])?十?([一二三四五六七八九])?、|\\d{1,3}、|（\\d{1,2}）\\s?)(([\\u4e00-\\u9fa5]{1,25}、?)+)\\s((\\d{3}){1,4})\\s*$";
-				Pattern pattern = Pattern.compile(regexStr);
-
-				in = new BufferedReader(new InputStreamReader(uploadFile.getInputStream(), "UTF-8"));
-				String s = "";
-				while ((s = in.readLine()) != null) {
-					Matcher matcher = pattern.matcher(s);
-					if (matcher.find()) {
-						Brief brief = new Brief();
-						brief.setBriefId(matcher.group(6));
-						brief.setBriefName(matcher.group(4));
-
-						briefService.addBrief(brief);
-					}
-				}
-				in.close();
-				return "success";
-			}
-		}
-		return "error";
-	}
-	*/
+	 * public String uploadBrief(@RequestParam("file") MultipartFile uploadFile)
+	 * throws Exception { if (uploadFile.getSize() > 0) { String fileName =
+	 * uploadFile.getOriginalFilename(); fileName = fileName.toLowerCase(); if
+	 * (fileName.endsWith("txt")) { BufferedReader in = null; String regexStr =
+	 * "^(第[一二三四五六七八九十]部分\\s?|([一二三四五六七八九])?十?([一二三四五六七八九])?、|\\d{1,3}、|（\\d{1,2}）\\s?)(([\\u4e00-\\u9fa5]{1,25}、?)+)\\s((\\d{3}){1,4})\\s*$";
+	 * Pattern pattern = Pattern.compile(regexStr);
+	 * 
+	 * in = new BufferedReader(new InputStreamReader(uploadFile.getInputStream(),
+	 * "UTF-8")); String s = ""; while ((s = in.readLine()) != null) { Matcher
+	 * matcher = pattern.matcher(s); if (matcher.find()) { Brief brief = new
+	 * Brief(); brief.setBriefId(matcher.group(6));
+	 * brief.setBriefName(matcher.group(4));
+	 * 
+	 * briefService.addBrief(brief); } } in.close(); return "success"; } } return
+	 * "error"; }
+	 */
 
 	// 上传的文件会被自动绑定到MultipartFile中
 	@RequestMapping(value = "/uploadCourt", method = RequestMethod.POST)
@@ -136,7 +124,7 @@ public class Brief_CourtController {
 								courtService.addCourt(court);
 							}
 						}
-					}// for loop end.
+					} // for loop end.
 				} // while loop end.
 				xwpf.close();
 			}
@@ -162,24 +150,25 @@ public class Brief_CourtController {
 						assert (cells.size() >= 2);// 确保列数必须是2及以上
 
 						XWPFTableCell courtCode = cells.get(1);// 读取法院代字
-						String regexStr = "^[京津冀晋内辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]\\d{2}$";
+						String regexStr = "^[京津冀晋内辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]\\d{2}$";// 匹配中院
 						Pattern pattern = Pattern.compile(regexStr);
 						Matcher matcher = pattern.matcher(courtCode.getText());
 						if (matcher.find()) {// 定位到中院
 							while (i < (rows.size() - 1)) {// 防止边界溢出
-								XWPFTableRow rowL = rows.get(++i);// 获取中院下面的一行
+								XWPFTableRow rowL = rows.get(++i);// 获取中院下面的一行:一般情况下是该中院所辖的基层法院。
 								List<XWPFTableCell> cellsL = rowL.getTableCells();
 
 								assert (cellsL.size() >= 2);// 确保列数必须是2及以上
 								XWPFTableCell courtNameL = cellsL.get(0);// 读取法院名称
 								XWPFTableCell courtCodeL = cellsL.get(1);// 读取法院代字
-								String regexStrL = "^[京津冀晋内辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]\\d{4}$";
+								String regexStrL = "^[京津冀晋内辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]\\d{4}$";// 匹配基层法院
 								Pattern patternL = Pattern.compile(regexStrL);
 								Matcher matcherL = patternL.matcher(courtCodeL.getText());
 								if (matcherL.find()) {
 									Court court = new Court();
 									court.setCourtCode(courtCodeL.getText());
 									court.setName(courtNameL.getText());
+									//System.out.println(courtNameL.getText());
 									court.setCourt(courtService.getCourt(courtCode.getText()));
 
 									courtService.addCourt(court);

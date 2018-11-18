@@ -7,6 +7,6 @@
 <title>Error</title>
 </head>
 <body>
-fails
+文书录入出错，请检查“法院名称”是否正确。
 </body>
 </html>
