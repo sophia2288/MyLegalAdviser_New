@@ -59,6 +59,15 @@
             });
         }
     </script>
+    <script type="text/javascript">
+    	function showFullText(s){
+    		var w = s;
+    		var c = document.getElementById("title").value;
+    		if(c.length > w){
+    			document.getElementById("title").title=document.getElementById("title").value;
+    		}
+    	}
+    </script>
 </head>
 
 <body>

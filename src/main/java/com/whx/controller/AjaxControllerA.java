@@ -172,6 +172,7 @@ public class AjaxControllerA {
 			}
 
 			rtnStr = JSON.toJSONString(mapOfDocInfo);
+			mapOfDocInfo.clear();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -180,12 +181,6 @@ public class AjaxControllerA {
 			inStream.close();
 		}
 
-		/*
-		 * response.setContentType("text/plain");
-		 * response.setCharacterEncoding("UTF-8"); response.setHeader("Cache-Control",
-		 * "no-cache, must-revalidate"); response.getWriter().print(wordText);
-		 * response.getWriter().close();
-		 */
 		return rtnStr;
 	}
 }
