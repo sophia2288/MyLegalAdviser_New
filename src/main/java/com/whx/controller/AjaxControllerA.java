@@ -37,7 +37,7 @@ public class AjaxControllerA {
 		XWPFDocument xwpf = null;
 		XWPFWordExtractor we = null;
 
-		String strOfBrief = "";// 用于保存从文本中提取出的类似“原告张三因与被告李四民间借贷纠纷一案”这一句，里面包含有案由
+		String strOfBrief = "";// 用于存放从文本中提取出的类似“原告张三因与被告李四民间借贷纠纷一案”这一句，里面包含有案由
 
 		try {
 			// String fileName = file.getOriginalFilename();

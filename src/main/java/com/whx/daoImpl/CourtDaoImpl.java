@@ -45,7 +45,7 @@ public class CourtDaoImpl implements CourtDao{
 	}
 
 	/*
-	 * court表的name列应用了UNIQUE约束，可以确保法院名称是唯一的。
+	 * court表的name列应用了UNIQUE约束，可以确保“法院名称”是唯一的。
 	 * 使用sql语句“SELECT name,count(name) FROM mylaw.court group by name having count(name)>1”
 	 * 对数据库court表进行查询，法院名称无重复。
 	 * 下列模糊查询，理论情况下应返回多条记录，但具体到本表应该只返回一条记录。
