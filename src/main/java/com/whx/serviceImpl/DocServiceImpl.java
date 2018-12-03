@@ -70,4 +70,9 @@ public class DocServiceImpl implements DocService{
 		return docDao.exists(caseNo);
 	}
 
+	@Override
+	public String getFullPath(Doc doc) {
+		
+		return docDao.getFullPath(doc);
+	}
 }

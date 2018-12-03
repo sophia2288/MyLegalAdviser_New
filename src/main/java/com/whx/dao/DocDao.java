@@ -27,5 +27,6 @@ public interface DocDao {
 	public boolean exists(Integer docId);
 
 	public boolean exists(String caseNo);
-
+	
+	public String getFullPath(Doc doc);
 }

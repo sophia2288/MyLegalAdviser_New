@@ -79,4 +79,9 @@ public class DocDaoImpl implements DocDao{
 		return docList.size() > 0 ? true : false;
 	}
 
+	@Override
+	public String getFullPath(Doc doc) {
+		return doc.getFullPathName();
+	}
+
 }
