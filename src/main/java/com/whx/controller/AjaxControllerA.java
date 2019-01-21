@@ -37,7 +37,7 @@ public class AjaxControllerA {
 		XWPFDocument xwpf = null;
 		XWPFWordExtractor we = null;
 
-		String strOfBrief = "";// 用于存放从文本中提取出的类似“原告张三因与被告李四民间借贷纠纷一案”这一句，里面包含有案由
+		String strOfBrief = "";// 用于存放从文本中提取出的类似“原告张三因与被告李四民间借贷纠纷一案”这一句，里面包含有案由：“民间借贷纠纷”
 
 		try {
 			// String fileName = file.getOriginalFilename();
@@ -73,6 +73,7 @@ public class AjaxControllerA {
 				strOfBrief = matcher.group();
 			}
 			
+			//一审
 			String regexStrOfcourt_caseNo = "^((北京市|上海市|天津市|重庆市|河北省|黑龙江省|吉林省|辽宁省|内蒙古自治区|山西省|江苏省|浙江省|安徽省|福建省|江西省|山东省|河南省|湖北省|湖南省|广东省|广西壮族自治区|海南省|四川省|贵州省|云南省|西藏自治区|陕西省|甘肃省|青海省|宁夏回族自治区|新疆维吾尔自治区|新疆建设兵团)?[\\u4e00-\\u9fa5]{1,20}人民法院)\\n+(([民]\\s*事\\s*)(判\\s*决\\s*书|裁\\s*定\\s*书))\\n+((([\\[〔（]19\\d{2}[\\]）〕]|[\\[〔（]20\\d{2}[\\]）〕])[\\u4e00-\\u9fa5]{1,8}[民商][一二三四外]?[初重]字第\\d{1,5}(-\\d{1})?号)|(（201[56789]）[京津冀黑吉辽内晋沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]((\\d{2})|(\\d{4}))?民初\\d{1,5}号))";
 			matcher.usePattern(Pattern.compile(regexStrOfcourt_caseNo));
 			matcher.region(0, startOfBriefMatcher);// 将提取法院名称、案号等操作的匹配范围限定在文本的开头至startOfBriefMatcher范围内，但不包括startOfBriefMatcher处的字符。裁判文书的格式（结构）决定了应该这样处理。
@@ -90,7 +91,7 @@ public class AjaxControllerA {
 				// 以下代码用于提取一审案件中的当事人
 				String regexStrOfLitigant = "(原告([\\(（]反诉被告[）\\)])?|被告([\\(（]反诉原告[）\\)])?|第三人)[：:]?(([\\u4e00-\\u9fa5][a-zA-Z（）()Ｘ]*){1,60})[,，。]?";
 				matcher.usePattern(Pattern.compile(regexStrOfLitigant));
-				matcher.region(0, startOfBriefMatcher);// 将提取当事人的匹配范围限定在文本的开头至startOfBriefMatcher范围内，但不包括startOfBriefMatcher处的字符。限定匹配范围对正确提取当事人信息很有必要。
+				matcher.region(0, startOfBriefMatcher);// 将提取当事人的匹配范围限定在从文本的开头至startOfBriefMatcher范围内，但不包括startOfBriefMatcher处的字符。限定匹配范围对正确提取当事人信息很有必要。
 
 				Map<String, String> dangShiRenMap = new HashMap<String, String>();
 				String dangShiRenStr = "", suSongDiWei = "";
@@ -161,6 +162,7 @@ public class AjaxControllerA {
 				}
 			}
 
+			//二审
 			regexStrOfcourt_caseNo = "^((北京市|上海市|天津市|重庆市|河北省|黑龙江省|吉林省|辽宁省|内蒙古自治区|山西省|江苏省|浙江省|安徽省|福建省|江西省|山东省|河南省|湖北省|湖南省|广东省|广西壮族自治区|海南省|四川省|贵州省|云南省|西藏自治区|陕西省|甘肃省|青海省|宁夏回族自治区|新疆维吾尔自治区|新疆建设兵团)?[\\u4e00-\\u9fa5]{1,20}人民法院)\\n+(([民]\\s*事\\s*)(判\\s*决\\s*书|裁\\s*定\\s*书))\\n+((([\\[〔（]19\\d{2}[\\]）〕]|[\\[〔（]20\\d{2}[\\]）〕])[\\u4e00-\\u9fa5]{0,7}[民商][一二三四]?终字第\\d{1,5}(-\\d{1})?号)|(（201[56789]）[京津冀黑吉辽内晋沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]((\\d{2})|(\\d{4}))?民终\\d{1,5}号))";
 			matcher.usePattern(Pattern.compile(regexStrOfcourt_caseNo));
 			matcher.region(0, startOfBriefMatcher);// 将提取法院名称、案号等操作的匹配范围限定在文本的开头至startOfMatch范围内，但不包括startOfMatch处的字符
@@ -263,6 +265,7 @@ public class AjaxControllerA {
 				}
 			}
 
+			//再审
 			regexStrOfcourt_caseNo = "^((北京市|上海市|天津市|重庆市|河北省|黑龙江省|吉林省|辽宁省|内蒙古自治区|山西省|江苏省|浙江省|安徽省|福建省|江西省|山东省|河南省|湖北省|湖南省|广东省|广西壮族自治区|海南省|四川省|贵州省|云南省|西藏自治区|陕西省|甘肃省|青海省|宁夏回族自治区|新疆维吾尔自治区|新疆建设兵团)?[\\u4e00-\\u9fa5]{1,20}人民法院)\\n+(([民]\\s*事\\s*)(判\\s*决\\s*书|裁\\s*定\\s*书))\\n+((([\\[〔（]19\\d{2}[\\]）〕]|[\\[〔（]20\\d{2}[\\]）〕])[\\u4e00-\\u9fa5]{0,7}[民商][一二三四]?((再[初终]?)|抗|提)字第\\d{1,5}(-\\d{1})?号)|(（201[56789]）[京津冀黑吉辽内晋沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川黔云藏陕甘青宁新兵]((\\d{2})|(\\d{4}))?民[再抗]\\d{1,5}号))";
 			matcher.usePattern(Pattern.compile(regexStrOfcourt_caseNo));
 			matcher.region(0, startOfBriefMatcher);// 将提取法院名称、案号等操作的匹配范围限定在文本的开头至startOfMatch范围内，但不包括startOfMatch处的字符

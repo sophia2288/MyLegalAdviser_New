@@ -113,5 +113,6 @@ $(document).ready(function() {
 	$('#brief').typeahead({
 		source : availableTags,
 		items : 10, // 设置展示多少条--默认8条
+		autoSelect : true,
 	})
 });

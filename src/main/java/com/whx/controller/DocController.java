@@ -35,7 +35,7 @@ public class DocController {
 	public String docInput(Model model) {
 		model.addAttribute("doc", new Doc());
 
-		return "inputDoc3";
+		return "inputDoc8";
 	}
 
 	@RequestMapping(value = "/saveDoc")

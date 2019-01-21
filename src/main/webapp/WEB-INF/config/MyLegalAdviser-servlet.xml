@@ -22,6 +22,9 @@
 	<mvc:resources mapping="/bootstrap-3.3.7/css/**" location="/bootstrap-3.3.7/css/" />
 	<mvc:resources mapping="/bootstrap-3.3.7/js/**" location="/bootstrap-3.3.7/js/" />
 	<mvc:resources mapping="/bootstrap-3.3.7/fonts/**" location="/bootstrap-3.3.7/fonts/" />
+	<mvc:resources mapping="/bootstrap-4.2.1-dist/css/**" location="/bootstrap-4.2.1-dist/css/" />
+	<mvc:resources mapping="/bootstrap-4.2.1-dist/js/**" location="/bootstrap-4.2.1-dist/js/" />
+	<mvc:resources mapping="/bootstrap-4.2.1-dist/fonts/**" location="/bootstrap-4.2.1-dist/fonts/" />
 	<mvc:resources mapping="/bootstrap-datepicker/js/**" location="/bootstrap-datepicker/js/" />
 	<mvc:resources mapping="/bootstrap-datepicker/css/**" location="/bootstrap-datepicker/css/" />
 	<mvc:resources mapping="/bootstrap-datepicker/locales/**" location="/bootstrap-datepicker/locales/" />
