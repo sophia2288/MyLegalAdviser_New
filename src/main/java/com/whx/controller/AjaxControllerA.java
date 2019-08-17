@@ -71,6 +71,17 @@ public class AjaxControllerA {
 			if (matcher.find()) {
 				startOfBriefMatcher = matcher.start();// 取得文书中类似于“原告张三因与被告李四民间借贷纠纷一案”这句话的第一个字符在整个文本中的位置
 				strOfBrief = matcher.group();
+			}else {
+				mapOfDocInfo.put("court", "");
+				mapOfDocInfo.put("proceeding", "一审");
+				mapOfDocInfo.put("caseNo", "");
+				mapOfDocInfo.put("category", "民商事");
+				mapOfDocInfo.put("docCategory", "判决书");
+				mapOfDocInfo.put("litigant", "");
+				mapOfDocInfo.put("brief", "");
+				mapOfDocInfo.put("title", "");
+				mapOfDocInfo.put("judgeDate", "1977-01-01");
+				mapOfDocInfo.put("judge", "");
 			}
 			
 			//一审
@@ -96,8 +107,6 @@ public class AjaxControllerA {
 				Map<String, String> dangShiRenMap = new HashMap<String, String>();
 				String dangShiRenStr = "", suSongDiWei = "";
 
-				String title = "测试中……";// 案件名称
-
 				outerLoop: while (matcher.find()) {
 					dangShiRenStr = "";// 在循环中首先将变量dangShiRenStr赋空值
 					if (matcher.group(4).contains("代理"))
@@ -115,7 +124,7 @@ public class AjaxControllerA {
 				}
 
 				String yuanGao = "", beiGao = "", diSanRen = "";
-				dangShiRenStr = "";
+				
 				for (Map.Entry<String, String> entry : dangShiRenMap.entrySet()) {
 					if(entry.getKey().equals("原告")) {
 						yuanGao += entry.getValue();
@@ -130,17 +139,21 @@ public class AjaxControllerA {
 				mapOfDocInfo.put("litigant", dangShiRenStr.substring(0, dangShiRenStr.length() - 1));
 
 				// 以下代码提取案由，仔细琢磨
-				strOfBrief = strOfBrief.replaceAll("[\\(\\[（]((以下)?简称|下称)(([\\u4e00-\\u9fa5]?[0-9a-zA-ZＸ\"“”]*){1,30})[\\)\\]）]", "");
-				int indexOfBriefBegin = strOfBrief.lastIndexOf("@");
-				int indexOfBriefEnd = strOfBrief.lastIndexOf("一案");
-				strOfBrief = strOfBrief.substring(indexOfBriefBegin + 1, indexOfBriefEnd);
-				mapOfDocInfo.put("brief", strOfBrief);
+				if(strOfBrief.length() >= 4) {
+					strOfBrief = strOfBrief.replaceAll("[\\(\\[（]((以下)?简称|下称)(([\\u4e00-\\u9fa5]?[0-9a-zA-ZＸ\"“”]*){1,30})[\\)\\]）]", "");
+					int indexOfBriefBegin = strOfBrief.lastIndexOf("@");
+					int indexOfBriefEnd = strOfBrief.lastIndexOf("一案");
+					strOfBrief = strOfBrief.substring(indexOfBriefBegin + 1, indexOfBriefEnd);
+					mapOfDocInfo.put("brief", strOfBrief);
+				}
 				
+				// 案件名称 title
 				// 当事人+案由就构成了案件名称：张三与李四民间借贷纠纷案
-				title = yuanGao.substring(0, yuanGao.length() - 1) + "与" + (diSanRen.equals("")?beiGao.substring(0,beiGao.length() - 1):(beiGao + diSanRen.substring(0,diSanRen.length() - 1))) + strOfBrief + "案";
+				String title = yuanGao.substring(0, yuanGao.length() - 1) + "与" + (diSanRen.equals("")?beiGao.substring(0,beiGao.length() - 1):(beiGao + diSanRen.substring(0,diSanRen.length() - 1))) + strOfBrief;
 				mapOfDocInfo.put("title", title);
 				 
-				// 以下代码提取裁判日期。一般情况下，文书中有很多日期，以下代码确保只提取文书的裁判日期。
+				// 以下代码提取裁判日期和审判员。一般情况下，文书中有很多日期，以下代码确保只提取文书的裁判日期。
+				// 注意〇字符，有多个〇字符：○〇……，从中国裁判文书网下载的文书能正确匹配regexStrOfJudge_JudgeDate。
 				String regexStrOfJudge_JudgeDate = "((((([代助]理)?审判[长员]|人民陪审员)([\\u4e00-\\u9fa5]{2,6}))\\n+)+)(((一九|二〇)[一二三四五六七八九〇]{2})年([一二三四五六七八九十]|十一|十二)月([一二三四五六七八九十]{1,3})日)\\n+((法官助理[\\u4e00-\\u9fa5]{2,6})\\n+)?((代|见习|实习)?书记员([\\u4e00-\\u9fa5]{2,6})(（兼）)?)";
 				matcher.usePattern(Pattern.compile(regexStrOfJudge_JudgeDate));
 				matcher.reset();// 将匹配范围重新设置为整个文本
@@ -177,73 +190,66 @@ public class AjaxControllerA {
 				mapOfDocInfo.put("docCategory", matcher.group(5).replaceAll("\\s*", ""));// 提取文书类型
 
 				// 以下代码用于提取二审案件中的当事人
-				String regexStrOfLitigant = "((被?上诉人)(（(([一审原被告反诉申请执行人第三案外][，、,]?){4,15})）)|原审原告|原审被告|原审第三人|第三人)[：:]?(([\\u4e00-\\u9fa5][a-zA-Z（）()Ｘ]*){1,60})[,，。]?";
+				String regexStrOfLitigant = "((被?上诉人)([\\(（](([一审原被告反诉申请执行人第三案外][，、,]?){4,15})[）\\)])?|[原一]审原告|[原一]审被告|([原一]审)?第三人)[：:]?(([\\u4e00-\\u9fa5][a-zA-Z（）()Ｘ]*){1,60})[,，。]?";
 				matcher.usePattern(Pattern.compile(regexStrOfLitigant));
-				matcher.region(0, startOfBriefMatcher);// 将提取当事人的匹配范围限定在文本的开头至startOfBriefMatcher范围内，但不包括startOfBriefMatcher处的字符。限定匹配范围对正确提取当事人信息很有必要。
-				String dangShiRen = "", shangSuRen = "", beiShangSuRen = "", diSanRen = "", yuanShenYuanGao = "",
-						yuanShenBeiGao = "", yuanShenDiSanRen = "";
-				String title = "";// 案件名称
-				while (matcher.find()) {
-					if (matcher.group(6).contains("代理"))// 此行代码应放在前面
+				matcher.region(0, startOfBriefMatcher);// 将提取当事人的匹配范围限定在从文本的开头至startOfBriefMatcher范围内，但不包括startOfBriefMatcher处的字符。限定匹配范围对正确提取当事人信息很有必要。
+				
+				Map<String, String> dangShiRenMap = new HashMap<String, String>();
+				String dangShiRenStr = "", suSongDiWei = "";
+				outerLoop: while (matcher.find()) {
+					dangShiRenStr = "";// 在循环中首先将变量dangShiRenStr赋空值
+					if (matcher.group(7).contains("代理"))
 						continue;
-					if (shangSuRen.contains(matcher.group(6)) || beiShangSuRen.contains(matcher.group(6))
-							|| diSanRen.contains(matcher.group(6)))
-						continue;
-					if (yuanShenYuanGao.contains(matcher.group(6)) || yuanShenBeiGao.contains(matcher.group(6))
-							|| yuanShenDiSanRen.contains(matcher.group(6)))
-						continue;
-					if (matcher.group(2).equals("上诉人")) {
-						shangSuRen = shangSuRen + matcher.group(6) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(6), "@");
-						continue;
+					
+					for (String value : dangShiRenMap.values()) {
+						if (value.contains(matcher.group(7)))
+							continue outerLoop;
 					}
-					if (matcher.group(2).equals("被上诉人")) {
-						beiShangSuRen = beiShangSuRen + matcher.group(6) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(6), "@");
-						continue;
-					}
-					if (matcher.group(1).equals("第三人")) {
-						diSanRen = diSanRen + matcher.group(6) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(6), "@");
-						continue;
-					}
-
-					if (matcher.group(1).equals("原审原告")) {
-						yuanShenYuanGao = yuanShenYuanGao + matcher.group(6) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(6), "@");
-						continue;
-					}
-					if (matcher.group(1).equals("原审被告")) {
-						yuanShenBeiGao = yuanShenBeiGao + matcher.group(6) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(6), "@");
-						continue;
-					}
-					if (matcher.group(1).equals("原审第三人")) {
-						yuanShenDiSanRen = yuanShenDiSanRen + matcher.group(6) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(6), "@");
-						continue;
+					
+					suSongDiWei = matcher.group(1);// 当事人的诉讼地位：上诉人、被上诉人、第三人、原（一）审原告、原（一）审被告、原（一）审第三人
+					dangShiRenStr = ((dangShiRenMap.get(suSongDiWei) == null) ? "" : dangShiRenMap.get(suSongDiWei)) + matcher.group(7) + "、";
+					dangShiRenMap.put(suSongDiWei, dangShiRenStr);// map里没有就添加进去，有就更新
+					strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
+				}
+				
+				String shangSuRen = "", beiShangSuRen = "", diSanRen = "", yuanShenYuanGao = "", yuanShenBeiGao = "", yuanShenDiSanRen = "";
+				
+				for (Map.Entry<String, String> entry : dangShiRenMap.entrySet()) {
+					if(entry.getKey().contains("被上诉人")) { //先判断是否包含被上诉人，再判断是否包含上诉人
+						beiShangSuRen += entry.getValue();
+					}else if(entry.getKey().contains("上诉人")) {
+						shangSuRen += entry.getValue();
+					}else if(entry.getKey().equals("第三人")) {
+						diSanRen += entry.getValue();
+					}else if(entry.getKey().equals("原审原告")||entry.getKey().equals("一审原告")) {
+						yuanShenYuanGao += entry.getValue();
+					}else if(entry.getKey().equals("原审被告")||entry.getKey().equals("一审被告")) {
+						yuanShenBeiGao += entry.getValue();
+					}else if(entry.getKey().equals("原审第三人")||entry.getKey().equals("一审第三人")) {
+						yuanShenDiSanRen += entry.getValue();
 					}
 				}
-
-				dangShiRen = shangSuRen + beiShangSuRen + diSanRen + yuanShenYuanGao + yuanShenBeiGao
-						+ yuanShenDiSanRen;
-				mapOfDocInfo.put("litigant", dangShiRen.substring(0, dangShiRen.length() - 1));
+				dangShiRenStr = shangSuRen + beiShangSuRen + diSanRen + yuanShenYuanGao + yuanShenBeiGao + yuanShenDiSanRen;
+				mapOfDocInfo.put("litigant", dangShiRenStr.substring(0, dangShiRenStr.length() - 1));
 
 				// 以下代码提取案由，仔细琢磨
-				strOfBrief = strOfBrief
-						.replaceAll("[\\(\\[（]((以下)?简称|下称)(([\\u4e00-\\u9fa5]?[0-9a-zA-ZＸ\"“”]*){1,30})[\\)\\]）]", "");
-				int indexOfBriefBegin = strOfBrief.lastIndexOf("@");
-				int indexOfBriefEnd = strOfBrief.lastIndexOf("一案");
-				strOfBrief = strOfBrief.substring(indexOfBriefBegin + 1, indexOfBriefEnd);
-				mapOfDocInfo.put("brief", strOfBrief);
-
+				if(strOfBrief.length() >= 4) {
+					strOfBrief = strOfBrief
+							.replaceAll("[\\(\\[（]((以下)?简称|下称)(([\\u4e00-\\u9fa5]?[0-9a-zA-ZＸ\"“”]*){1,30})[\\)\\]）]", "");
+					int indexOfBriefBegin = strOfBrief.lastIndexOf("@");
+					int indexOfBriefEnd = strOfBrief.lastIndexOf("一案");
+					strOfBrief = strOfBrief.substring(indexOfBriefBegin + 1, indexOfBriefEnd);
+					mapOfDocInfo.put("brief", strOfBrief);
+				}
+				
+				// 案件名称 title
 				// 当事人+案由就构成了案件名称
-				title = shangSuRen.substring(0, shangSuRen.length() - 1) + "与"
+				String title = shangSuRen.substring(0, shangSuRen.length() - 1) + "与"
 						+ beiShangSuRen.substring(0, beiShangSuRen.length() - 1) + strOfBrief;
 				mapOfDocInfo.put("title", title);
 
-				// 以下代码提取裁判日期。一般情况下，文书中有很多日期，以下代码确保只提取文书的裁判日期。
-				// 注意〇字符，有多个〇字符：○
+				// 以下代码提取裁判日期和审判员。一般情况下，文书中有很多日期，以下代码确保只提取文书的裁判日期。
+				// 注意〇字符，有多个〇字符：○〇……，从中国裁判文书网下载的文书能正确匹配regexStrOfJudge_JudgeDate。
 				String regexStrOfJudge_JudgeDate = "((((([代助]理)?审判[长员]|人民陪审员)([\\u4e00-\\u9fa5]{2,6}))\\n+)+)(((一九|二〇)[一二三四五六七八九〇]{2})年([一二三四五六七八九十]|十一|十二)月([一二三四五六七八九十]{1,3})日)\\n+((法官助理[\\u4e00-\\u9fa5]{2,6})\\n+)?((代|见习|实习)?书记员([\\u4e00-\\u9fa5]{2,6})(（兼）)?)";
 				matcher.usePattern(Pattern.compile(regexStrOfJudge_JudgeDate));
 				matcher.reset();// 将匹配范围重新设置为整个文本
@@ -277,83 +283,77 @@ public class AjaxControllerA {
 					mapOfDocInfo.put("category", "民商事");// 提取案件类型
 				}
 				mapOfDocInfo.put("docCategory", matcher.group(5).replaceAll("\\s*", ""));// 提取文书类型
-
+				
 				// 以下代码用于提取再审案件中的当事人
 				String regexStrOfLitigant = "((再审申请人|申请再审人|被申请人|申诉人|被申诉人)([\\(（](([一二三再审原被告反上诉申请执行人第案外][，、,]?){4,20})[）\\)])?|([原一二三审被告第人]{3,10}))[：:]?(([\\u4e00-\\u9fa5][a-zA-Z（）()Ｘ]*){1,60})[,，。]?";
 				matcher.usePattern(Pattern.compile(regexStrOfLitigant));
 				matcher.region(0, startOfBriefMatcher);// 将提取当事人的匹配范围限定在文本的开头至startOfBriefMatcher范围内，但不包括startOfBriefMatcher处的字符。限定匹配范围对正确提取当事人信息很有必要。
-				String dangShiRen = "", shenQingRen = "", beiShenQingRen = "", shenSuRen = "", beiShenSuRen = "",
+				
+				Map<String, String> dangShiRenMap = new HashMap<String, String>();
+				String dangShiRenStr = "", suSongDiWei = "";
+				outerLoop: while (matcher.find()) {
+					dangShiRenStr = "";// 在循环中首先将变量dangShiRenStr赋空值
+					if (matcher.group(7).contains("代理"))
+						continue;
+					
+					for (String value : dangShiRenMap.values()) {
+						if (value.contains(matcher.group(7)))
+							continue outerLoop;
+					}
+					
+					suSongDiWei = matcher.group(1);// 当事人的诉讼地位：再审申请人、被申请人、申诉人、被申诉人、第三人、原（一）审原告、原（一）审被告、原（一）审第三人
+					dangShiRenStr = ((dangShiRenMap.get(suSongDiWei) == null) ? "" : dangShiRenMap.get(suSongDiWei)) + matcher.group(7) + "、";
+					dangShiRenMap.put(suSongDiWei, dangShiRenStr);// map里没有就添加进去，有就更新
+					strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
+				}
+				
+				String shenQingRen = "", beiShenQingRen = "", shenSuRen = "", beiShenSuRen = "",
 						diSanRen = "", yuanShenYuanGao = "", yuanShenBeiGao = "", yuanShenDiSanRen = "";
-				String title = "";// 案件名称
-				while (matcher.find()) {
-					if (matcher.group(7).contains("代理"))// 此行代码应放在前面
-						continue;
-					if (shenQingRen.contains(matcher.group(7)) || beiShenQingRen.contains(matcher.group(7))
-							|| shenSuRen.contains(matcher.group(7)) || beiShenSuRen.contains(matcher.group(7)))
-						continue;
-					if (yuanShenYuanGao.contains(matcher.group(7)) || yuanShenBeiGao.contains(matcher.group(7))
-							|| yuanShenDiSanRen.contains(matcher.group(7)) || diSanRen.contains(matcher.group(7)))
-						continue;
-					if (matcher.group(2).equals("申请再审人") || matcher.group(2).equals("再审申请人")) {
-						shenQingRen = shenQingRen + matcher.group(7) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
-						continue;
-					}
-					if (matcher.group(2).equals("被申请人")) {
-						beiShenQingRen = beiShenQingRen + matcher.group(7) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
-						continue;
-					}
-					if (matcher.group(2).equals("申诉人")) {
-						shenSuRen = shenSuRen + matcher.group(7) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
-						continue;
-					}
-					if (matcher.group(2).equals("被申诉人")) {
-						beiShenSuRen = beiShenSuRen + matcher.group(7) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
-						continue;
-					}
-					if (matcher.group(6).equals("第三人")) {
-						diSanRen = diSanRen + matcher.group(7) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
-						continue;
-					}
-					if (matcher.group(6).equals("原审原告")) {
-						yuanShenYuanGao = yuanShenYuanGao + matcher.group(7) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
-						continue;
-					}
-					if (matcher.group(6).equals("原审被告")) {
-						yuanShenBeiGao = yuanShenBeiGao + matcher.group(7) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
-						continue;
-					}
-					if (matcher.group(6).equals("原审第三人")) {
-						yuanShenDiSanRen = yuanShenDiSanRen + matcher.group(7) + "、";
-						strOfBrief = strOfBrief.replaceAll(matcher.group(7), "@");
-						continue;
+				
+				for (Map.Entry<String, String> entry : dangShiRenMap.entrySet()) {
+					if(entry.getKey().contains("再审申请人")||entry.getKey().contains("申请再审人")) {
+						shenQingRen += entry.getValue();
+					}else if(entry.getKey().contains("被申请人")) {
+						beiShenQingRen += entry.getValue();
+					}else if(entry.getKey().contains("被申诉人")) {
+						beiShenSuRen += entry.getValue();
+					}else if(entry.getKey().contains("申诉人")) {
+						shenSuRen += entry.getValue();
+					}else if(entry.getKey().equals("第三人")) {
+						diSanRen += entry.getValue();
+					}else if(entry.getKey().equals("原审原告")||entry.getKey().equals("一审原告")) {
+						yuanShenYuanGao += entry.getValue();
+					}else if(entry.getKey().equals("原审被告")||entry.getKey().equals("一审被告")) {
+						yuanShenBeiGao += entry.getValue();
+					}else if(entry.getKey().equals("原审第三人")||entry.getKey().equals("一审第三人")) {
+						yuanShenDiSanRen += entry.getValue();
 					}
 				}
-
-				dangShiRen = shenQingRen + beiShenQingRen + shenSuRen + beiShenSuRen + diSanRen + yuanShenYuanGao
+				dangShiRenStr = shenQingRen + beiShenQingRen + shenSuRen + beiShenSuRen + diSanRen + yuanShenYuanGao
 						+ yuanShenBeiGao + yuanShenDiSanRen;
-				mapOfDocInfo.put("litigant", dangShiRen.substring(0, dangShiRen.length() - 1));
-
+				mapOfDocInfo.put("litigant", dangShiRenStr .substring(0, dangShiRenStr .length() - 1));
+				
 				// 以下代码提取案由，仔细琢磨
-				strOfBrief = strOfBrief
-						.replaceAll("[\\(\\[（]((以下)?简称|下称)(([\\u4e00-\\u9fa5]?[0-9a-zA-ZＸ\"“”]*){1,30})[\\)\\]）]", "");
-				int indexOfBriefBegin = strOfBrief.lastIndexOf("@");
-				int indexOfBriefEnd = strOfBrief.lastIndexOf("一案");
-				strOfBrief = strOfBrief.substring(indexOfBriefBegin + 1, indexOfBriefEnd);
-				mapOfDocInfo.put("brief", strOfBrief);
+				if(strOfBrief.length() >= 4) {
+					strOfBrief = strOfBrief
+							.replaceAll("[\\(\\[（]((以下)?简称|下称)(([\\u4e00-\\u9fa5]?[0-9a-zA-ZＸ\"“”]*){1,30})[\\)\\]）]", "");
+					int indexOfBriefBegin = strOfBrief.lastIndexOf("@");
+					int indexOfBriefEnd = strOfBrief.lastIndexOf("一案");
+					strOfBrief = strOfBrief.substring(indexOfBriefBegin + 1, indexOfBriefEnd);
+					mapOfDocInfo.put("brief", strOfBrief);
+				}
 
+				// 案件名称 title
 				// 当事人+案由就构成了案件名称
-				title = shenQingRen.substring(0, shenQingRen.length() - 1) + "与"
-						+ beiShenQingRen.substring(0, beiShenQingRen.length() - 1) + strOfBrief;
+				shenQingRen = (shenQingRen.length()>=1)?shenQingRen.substring(0, shenQingRen.length() - 1):"";
+				shenSuRen = (shenSuRen.length()>=1)?shenSuRen.substring(0, shenSuRen.length() - 1):"";
+				beiShenQingRen = (beiShenQingRen.length()>=1)?beiShenQingRen.substring(0, beiShenQingRen.length() - 1):"";
+				beiShenSuRen = (beiShenSuRen.length()>=1)?beiShenSuRen.substring(0, beiShenSuRen.length() - 1):"";
+				
+				String title = shenQingRen + shenSuRen + "与" + beiShenQingRen + beiShenSuRen + strOfBrief;
 				mapOfDocInfo.put("title", title);
-
-				// 以下代码提取裁判日期。一般情况下，文书中有很多日期，以下代码确保只提取文书的裁判日期。
+				
+				// 以下代码提取裁判日期和审判员。一般情况下，文书中有很多日期，以下代码确保只提取文书的裁判日期。
 				// 注意〇字符，有多个〇字符：○〇……，从中国裁判文书网下载的文书能正确匹配regexStrOfJudge_JudgeDate。
 				String regexStrOfJudge_JudgeDate = "((((([代助]理)?审判[长员]|人民陪审员)([\\u4e00-\\u9fa5]{2,6}))\\n+)+)(((一九|二〇)[一二三四五六七八九〇]{2})年([一二三四五六七八九十]|十一|十二)月([一二三四五六七八九十]{1,3})日)\\n+((法官助理[\\u4e00-\\u9fa5]{2,6})\\n+)?((代|见习|实习)?书记员([\\u4e00-\\u9fa5]{2,6})(（兼）)?)";
 				matcher.usePattern(Pattern.compile(regexStrOfJudge_JudgeDate));
@@ -375,8 +375,8 @@ public class AjaxControllerA {
 					mapOfDocInfo.put("judge", judges.substring(0, judges.length() - 1));
 				}
 			}
-
 			rtnStr = JSON.toJSONString(mapOfDocInfo);
+			
 			mapOfDocInfo.clear();
 		} catch (Exception e) {
 			e.printStackTrace();
