@@ -9,7 +9,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- hibernate版本号 -->
-		<org.hibernate-version>5.1.0.Final</org.hibernate-version>
+		<org.hibernate-version>5.3.20.Final</org.hibernate-version>
 		<!-- spring版本号 4.3.14.RELEASE 4.2.5.RELEASE -->
 		<spring.version>4.3.18.RELEASE</spring.version>
 	</properties>
